@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Sala {
@@ -16,6 +17,7 @@ public class Sala {
     private String indirizzo;
     private Long capienza;
 
+    @OneToMany(mappedBy = "sala")
     private List<Proiezione> proiezioni;
 
     public Long getId() {

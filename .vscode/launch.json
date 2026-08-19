@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SiwFestivalApplication<siw-festival>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "it.uniroma3.siw.siw_festival.SiwFestivalApplication",
+            "projectName": "siw-festival",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

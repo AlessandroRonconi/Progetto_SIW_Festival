@@ -3,24 +3,43 @@ package it.uniroma3.siw.siw_festival.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Festival {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotBlank
+    @Column(nullable=false)
     private String nome;
+    @NotNull
+    @Column(nullable=false)
     private Long anno;
+    @NotBlank
+    @Column(nullable=false)
     private String citta;
+    @NotNull
+    @Column(nullable=false)
     private LocalDate dataInizio;
+    @NotNull
+    @Column(nullable=false)
     private LocalDate dataFine;
+    @Column
     private String descrizione;
 
+    @ManyToMany
     private List<Film> films;
+    @OneToMany(mappedBy = "festival")
     private List<Proiezione> proiezioni;
 
     public Long getId() {

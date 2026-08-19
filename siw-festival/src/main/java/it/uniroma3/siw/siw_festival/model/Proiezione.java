@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Proiezione {
@@ -20,8 +21,11 @@ public class Proiezione {
     private LocalDate data;
     private LocalTime ora;
 
+    @ManyToOne
     private Festival festival;
+    @ManyToOne
     private Film film;
+    @ManyToOne
     private Sala sala;
 
     public Long getId() {

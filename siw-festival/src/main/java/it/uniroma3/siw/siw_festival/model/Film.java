@@ -6,6 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Film {
@@ -18,9 +21,13 @@ public class Film {
     private String genere;
     private String paeseProduzione;
 
+    @ManyToMany(mappedBy = "films")
     private List<Festival> festival;
+    @ManyToOne
     private Regista regista;
+    @OneToMany(mappedBy="film")
     private List<Proiezione> proiezioni;
+    @OneToMany(mappedBy="film")
     private List<Recensione> recensioni;
 
     public Long getId() {
