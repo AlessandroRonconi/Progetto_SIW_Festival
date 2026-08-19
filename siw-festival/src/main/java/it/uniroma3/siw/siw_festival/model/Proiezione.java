@@ -4,13 +4,21 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class Proiezione {
+    public static final String DEFAULT_STATUS = "SCHEDULED";
+    public static final String COMPLETED_STATUS = "COMPLETED";
+    public static final String CANCELLED_STATUS = "CANCELLED";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private LocalDate data;
     private LocalTime ora;
-    private ProiezioneStatus stato;
 
     private Festival festival;
     private Film film;
@@ -38,14 +46,6 @@ public class Proiezione {
 
     public void setOra(LocalTime ora) {
         this.ora = ora;
-    }
-
-    public ProiezioneStatus getStato() {
-        return stato;
-    }
-
-    public void setStato(ProiezioneStatus stato) {
-        this.stato = stato;
     }
 
     public Festival getFestival() {
