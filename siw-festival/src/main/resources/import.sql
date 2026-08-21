@@ -1,0 +1,1 @@
+INSERT INTO festival(id, nome, anno, citta, data_inizio, data_fine, descrizione) values(nextval('festival_seq'), 'Ottavia Film Festival', 2026, 'Roma', '2026-08-01', '2026-08-08', 'Festival di film indipendenti')

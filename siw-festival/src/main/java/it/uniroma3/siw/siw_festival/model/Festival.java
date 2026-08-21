@@ -38,7 +38,7 @@ public class Festival {
     private String descrizione;
 
     @ManyToMany
-    private List<Film> films;
+    private List<Film> film;
     @OneToMany(mappedBy = "festival")
     private List<Proiezione> proiezioni;
 
@@ -98,12 +98,12 @@ public class Festival {
         this.descrizione = descrizione;
     }
 
-    public List<Film> getFilms() {
-        return films;
+    public List<Film> getFilm() {
+        return film;
     }
 
-    public void setFilms(List<Film> films) {
-        this.films = films;
+    public void setFilm(List<Film> film) {
+        this.film = film;
     }
 
     public List<Proiezione> getProiezioni() {
