@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${film.titolo} + ' - Dettagli'">Tre uomini e una gamba - Dettagli</title>
+    <link rel="stylesheet" href="css/stile.css">
+</head>
+
+<body>
+    <h3>
+        <a href="/">Torna alla homepage</a>
+    </h3>
+
+    <h1 th:text="${film.titolo} + ' (' + ${film.anno} + ')'">Tre uomini e una gamba (1997)</h1>
+
+    <h2 th:text="'Regista: ' + ${regista.nome} + ' ' + ${regista.cognome}">Regista: Massimo Venier</h2>
+
+    <h2 th:text="'Genere: ' + ${film.genere}">Genere: Commedia</h2>
+
+    <h3>Festival: </h3>
+    <ul>
+        <li th:each="festival : ${festivalList}">
+            <a th:href="@{'/festival/' + ${festival.id}}" th:text="${festival.nome}">AGG Film Festival</a>
+        </li>
+    </ul>
+
+    <h3>Proiezioni: </h3>
+    <table>
+        <tr>
+            <td>Data</td>
+            <td>Ora</td>
+            <td>Festival</td>
+            <td>Sala</td>
+            <td>Indirizzo</td>
+        </tr>
+        <tr th:each="proiezione : ${proiezioniList}">
+            <td th:text="${#temporals.format(proiezione.data, 'dd/MM/yyyy')}">20/02/2025</td>
+            <td th:text="${proiezione.ora}">15:18</td>
+            <td th:text="${proiezione.festival.nome}">AGG Film Festival</td>
+            <td th:text="${proiezione.sala.nome}">Cinema Cadrega</td>
+            <td th:text="${proiezione.sala.indirizzo}">Via Subaru 1, Milano</td>
+        </tr>
+    </table>
+
+    <h3>Recensioni: </h3>
+    <ul>
+        <li th:each="recensione : ${recensioniList}">
+            <strong th:text="${recensione.utente.name} + ' ' + ${recensione.utente.surname} + ', ' + ${#temporals.format(recensione.data, 'dd/MM/yyyy')} + ': '">Mario Rossi, 28/02/2025 </strong>
+            <span th:text="${recensione.testo}">Letsgosky Lesgooo</span>
+            <span th:text="${recensione.voto}">10</span>
+        </li>
+    </ul>
+
+</body>
+
+</html>

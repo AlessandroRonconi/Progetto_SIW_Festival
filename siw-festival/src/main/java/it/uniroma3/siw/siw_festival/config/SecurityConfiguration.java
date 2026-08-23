@@ -37,7 +37,7 @@ public class SecurityConfiguration {
         httpSecurity.authorizeHttpRequests(authorize -> {
             authorize.requestMatchers(HttpMethod.GET,
                     "/", "/index", "/login", "/register",
-                    "/css/**", "/images/**", "/favicon.ico", "/error", "/festival/**")
+                    "/css/**", "/images/**", "/favicon.ico", "/error", "/festival/**", "/film/**", "/proiezioni/**", "/registi/**", "/recensioni/**")
                     .permitAll();
             authorize.requestMatchers(HttpMethod.POST, "/register", "/login").permitAll();
 

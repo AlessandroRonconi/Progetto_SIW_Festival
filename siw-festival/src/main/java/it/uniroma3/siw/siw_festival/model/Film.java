@@ -21,7 +21,7 @@ public class Film {
     private String genere;
     private String paeseProduzione;
 
-    @ManyToMany(mappedBy = "films")
+    @ManyToMany(mappedBy = "film")
     private List<Festival> festival;
     @ManyToOne
     private Regista regista;

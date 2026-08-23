@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
@@ -20,24 +22,25 @@ public class Festival {
     private Long id;
 
     @NotBlank
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String nome;
     @NotNull
-    @Column(nullable=false)
+    @Column(nullable = false)
     private Long anno;
     @NotBlank
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String citta;
     @NotNull
-    @Column(nullable=false)
+    @Column(nullable = false)
     private LocalDate dataInizio;
     @NotNull
-    @Column(nullable=false)
+    @Column(nullable = false)
     private LocalDate dataFine;
     @Column
     private String descrizione;
 
     @ManyToMany
+    @JoinTable(name = "festival_film", joinColumns = @JoinColumn(name = "festival_id"), inverseJoinColumns = @JoinColumn(name = "film_id"))
     private List<Film> film;
     @OneToMany(mappedBy = "festival")
     private List<Proiezione> proiezioni;

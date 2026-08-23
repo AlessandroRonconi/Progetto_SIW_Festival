@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text="${festival.nome} + ' ' + ${festival.anno} + ' - Film'">Lorem Ipsum Film Festival 2025 - Programmazione
+    <title th:text="${festival.nome} + ' ' + ${festival.anno} + ' - Programmazione'">Lorem Ipsum Film Festival 2025 - Programmazione
     </title>
     <link rel="stylesheet" href="css/stile.css">
 </head>
@@ -17,7 +17,7 @@
     <div>
         <ul>
             <li th:each="proiezione : ${proiezioniList}">
-                <p th:text="${#temporals.format(festival.dataInizio, 'dd/MM/yyyy')}">01/01/2025:
+                <p th:text="${#temporals.format(proiezione.data, 'dd/MM/yyyy')}">01/01/2025:
                 <a th:href="@{'/film/' + ${film.id}}" th:text="${proiezione.film.nome}">Inception</a>
                 </p>
             </li>
