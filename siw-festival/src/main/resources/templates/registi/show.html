@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${regista.nome} + ' ' + ${regista.cognome} + ' - Dettagli'">Pizzibarbaro Della Maremma - Dettagli</title>
+    <link rel="stylesheet" href="css/stile.css">
+</head>
+
+<body>
+    <h3>
+        <a href="/">Torna alla homepage</a>
+    </h3>
+
+    <h1 th:text="${regista.nome} + ' ' + ${regista.cognome}">Pizzibarbaro Della Maremma</h1>
+
+    <h3 th:text="${regista.nazionalita} + ', ' + ${#temporals.format(regista.dataNascita, 'dd/MM/yyyy')}">Italia,
+        01/01/1999</h3>
+
+    <h2>Film: </h2>
+    <ul>
+        <li th:each="film : ${filmList}">
+            <a th:href="@{'/film/' + ${film.id}}" th:text="${film.titolo} + ' (' + ${film.anno} + ')'">Il Sindaco di
+                Lignano (2019)</a>
+        </li>
+    </ul>
+
+
+</body>
+
+</html>

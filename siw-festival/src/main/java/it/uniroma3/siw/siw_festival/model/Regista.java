@@ -20,7 +20,7 @@ public class Regista {
     private String nazionalita;
 
     @OneToMany(mappedBy = "regista")
-    private List<Film> films;
+    private List<Film> film;
 
     public Long getId() {
         return id;
@@ -62,12 +62,12 @@ public class Regista {
         this.nazionalita = nazionalita;
     }
 
-    public List<Film> getFilms() {
-        return films;
+    public List<Film> getFilm() {
+        return film;
     }
 
-    public void setFilms(List<Film> films) {
-        this.films = films;
+    public void setFilm(List<Film> film) {
+        this.film = film;
     }
 
 }

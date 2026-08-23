@@ -15,18 +15,21 @@
 
     <h1 th:text="${film.titolo} + ' (' + ${film.anno} + ')'">Tre uomini e una gamba (1997)</h1>
 
-    <h2 th:text="'Regista: ' + ${regista.nome} + ' ' + ${regista.cognome}">Regista: Massimo Venier</h2>
+    <h3>
+        <a th:href="@{'/registi/' + ${regista.id}}"
+            th:text="'Regista: ' + ${regista.nome} + ' ' + ${regista.cognome}">Regista: Massimo Venier</a>
+    </h3>
 
-    <h2 th:text="'Genere: ' + ${film.genere}">Genere: Commedia</h2>
+    <h3 th:text="'Genere: ' + ${film.genere}">Genere: Commedia</h3>
 
-    <h3>Festival: </h3>
+    <h2>Festival: </h2>
     <ul>
         <li th:each="festival : ${festivalList}">
             <a th:href="@{'/festival/' + ${festival.id}}" th:text="${festival.nome}">AGG Film Festival</a>
         </li>
     </ul>
 
-    <h3>Proiezioni: </h3>
+    <h2>Proiezioni: </h2>
     <table>
         <tr>
             <td>Data</td>
@@ -44,10 +47,12 @@
         </tr>
     </table>
 
-    <h3>Recensioni: </h3>
+    <h2>Recensioni: </h2>
     <ul>
         <li th:each="recensione : ${recensioniList}">
-            <strong th:text="${recensione.utente.name} + ' ' + ${recensione.utente.surname} + ', ' + ${#temporals.format(recensione.data, 'dd/MM/yyyy')} + ': '">Mario Rossi, 28/02/2025 </strong>
+            <strong
+                th:text="${recensione.utente.name} + ' ' + ${recensione.utente.surname} + ', ' + ${#temporals.format(recensione.data, 'dd/MM/yyyy')} + ': '">Mario
+                Rossi, 28/02/2025 </strong>
             <span th:text="${recensione.testo}">Letsgosky Lesgooo</span>
             <span th:text="${recensione.voto}">10</span>
         </li>
