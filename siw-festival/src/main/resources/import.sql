@@ -1,6 +1,10 @@
 -- USER
 insert into users(id, name, surname, email) values(nextval('users_seq'), 'Mario', 'Rossi', 'mario.rossi@example.com');
 
+-- CREDENTIALS
+insert into credentials(id, username, password, role, user_id) values(nextval('credentials_seq'), 'MR2', '$2a$12$n7v3o3M6J5GojKUqLZVtf.N8alw9ZuVucMepqAAzRYT7ewg37tzRe', 'USER', 1)
+-- la password sopra è sus
+
 -- FESTIVAL
 insert into festival(id, nome, anno, citta, data_inizio, data_fine, descrizione) values(nextval('festival_seq'), 'Ottavia Sci-Fi Festival', 2026, 'Roma', '2026-08-01', '2026-08-08', 'Festival di film di fantascienza.');
 insert into festival(id, nome, anno, citta, data_inizio, data_fine, descrizione) values(nextval('festival_seq'), 'Ottavia Sci-Fi Festival', 2025, 'Roma', '2025-07-06', '2025-07-13', 'Festival di film di fantascienza.');

@@ -57,6 +57,9 @@
             <span th:text="${recensione.voto}">10</span>
         </li>
     </ul>
+    <div sec:authorize="hasAnyAuthority('USER','ADMIN')">
+        <a th:href="@{'/film/' + ${film.id} + '/recensioni/new'}"> Scrivi una recensione</a>
+    </div>
 
 </body>
 

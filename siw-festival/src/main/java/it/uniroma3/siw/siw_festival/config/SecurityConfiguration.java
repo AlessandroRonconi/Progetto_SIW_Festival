@@ -27,7 +27,7 @@ public class SecurityConfiguration {
     public UserDetailsService userDetailsService() {
         JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
         manager.setUsersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?");
-        manager.setAuthoritiesByUsernameQuery("SELECT username, ruolo FROM credentials WHERE username=?");
+        manager.setAuthoritiesByUsernameQuery("SELECT username, role FROM credentials WHERE username=?");
         return manager;
     }
 
@@ -37,10 +37,17 @@ public class SecurityConfiguration {
         httpSecurity.authorizeHttpRequests(authorize -> {
             authorize.requestMatchers(HttpMethod.GET,
                     "/", "/index", "/login", "/register",
-                    "/css/**", "/images/**", "/favicon.ico", "/error", "/festival/**", "/film/**", "/proiezioni/**", "/registi/**", "/recensioni/**")
+                    "/css/**", "/images/**", "/favicon.ico", "/error", "/festival/**", "/film", "/film/{id}",
+                    "/proiezioni/**",
+                    "/registi/**")
                     .permitAll();
             authorize.requestMatchers(HttpMethod.POST, "/register", "/login").permitAll();
 
+            authorize.requestMatchers(HttpMethod.GET, "/film/{id}/recensioni/**").authenticated();
+            authorize.requestMatchers(HttpMethod.POST, "/film/{id}/recensioni/**").authenticated();
+
+            authorize.requestMatchers(HttpMethod.GET, "/admin/**").hasAuthority("ADMIN");
+            authorize.requestMatchers(HttpMethod.POST, "/admin/**").hasAuthority("ADMIN");
         });
 
         httpSecurity.formLogin(form -> {

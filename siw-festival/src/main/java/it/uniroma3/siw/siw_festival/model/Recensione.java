@@ -7,6 +7,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Recensione {
@@ -14,6 +17,9 @@ public class Recensione {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String testo;
+    @NotNull(message = "Il voto è obbligatorio")
+    @Min(value = 1, message = "Il voto minimo è 1")
+    @Max(value = 10, message = "Il voto massimo è 10")
     private Long voto;
     private LocalDate data;
 
