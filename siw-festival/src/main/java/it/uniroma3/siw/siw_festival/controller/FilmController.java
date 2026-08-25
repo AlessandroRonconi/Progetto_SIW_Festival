@@ -28,13 +28,17 @@ public class FilmController {
     }
 
     @GetMapping("/film/{id}")
-    public String getFilmDetail(@PathVariable Long id, Model model) {
+    public String getFilmDetail(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
         Film f = this.filmService.findById(id);
         model.addAttribute("film", f);
         model.addAttribute("regista", f.getRegista());
         model.addAttribute("festivalList", f.getFestival());
         model.addAttribute("proiezioniList", f.getProiezioni());
         model.addAttribute("recensioniList", f.getRecensioni());
+
+        if (userDetails != null) {
+            model.addAttribute("currentUsername", userDetails.getUsername());
+        }
         return "film/show";
     }
 
@@ -46,7 +50,7 @@ public class FilmController {
     }
 
     @PostMapping("/film/{id}/recensioni/new")
-    public String postRecensione(@PathVariable Long id,
+    public String postRecensioneForm(@PathVariable Long id,
             @Valid @ModelAttribute("recensione") Recensione recensioneForm,
             BindingResult bindingResult,
             @AuthenticationPrincipal UserDetails userDetails,
@@ -59,6 +63,39 @@ public class FilmController {
                 recensioneForm.getVoto());
 
         return "redirect:/film/" + id;
+    }
+
+    @GetMapping("/film/{fId}/recensioni/{rId}/edit")
+    public String getRecensioneEdit(@PathVariable Long fId, @PathVariable Long rId, Model model,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        Recensione r = this.recensioneService.findById(rId);
+        if (!this.recensioneService.isOwner(r, userDetails.getUsername()))
+            return "redirect:/film/" + fId;
+        model.addAttribute("recensione", r);
+        model.addAttribute("fId", fId);
+        return "recensioni/editForm";
+    }
+
+    @PostMapping("/film/{fId}/recensioni/{rId}/edit")
+    public String postRecensioneEdit(@PathVariable Long fId,
+            @PathVariable Long rId,
+            @Valid @ModelAttribute("recensione") Recensione recensioneForm,
+            BindingResult bindingResult,
+            @AuthenticationPrincipal UserDetails userDetails,
+            Model model) {
+        Recensione r = this.recensioneService.findById(rId);
+
+        if (!this.recensioneService.isOwner(r, userDetails.getUsername())) {
+            return "redirect:/film/" + fId;
+        }
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("fId", fId);
+            return "recensioni/editForm";
+        }
+
+        this.recensioneService.updateRecensione(rId, recensioneForm.getTesto(), recensioneForm.getVoto());
+        return "redirect:/film/" + fId;
     }
 
 }

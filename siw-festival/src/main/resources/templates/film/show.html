@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -55,6 +55,12 @@
                 Rossi, 28/02/2025 </strong>
             <span th:text="${recensione.testo}">Letsgosky Lesgooo</span>
             <span th:text="${recensione.voto}">10</span>
+            <span sec:authorize="isAuthenticated()"
+                th:if="${recensione.utente.credentials != null and recensione.utente.credentials.username == #authentication.name}">
+                <a th:href="@{'/film/' + ${film.id} + '/recensioni/' + ${recensione.id} + '/edit'}">
+                    <button type="button">Modifica</button>
+                </a>
+            </span>
         </li>
     </ul>
     <div sec:authorize="hasAnyAuthority('USER','ADMIN')">

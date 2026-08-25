@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -22,6 +23,9 @@ public class User {
     @NotBlank
     @Column(nullable = false, unique = true)
     private String email;
+
+    @OneToOne(mappedBy = "user")
+    private Credentials credentials;
 
     public Long getId() {
         return id;
@@ -78,5 +82,13 @@ public class User {
         } else if (!id.equals(other.id))
             return false;
         return true;
+    }
+
+    public Credentials getCredentials() {
+        return credentials;
+    }
+
+    public void setCredentials(Credentials credentials) {
+        this.credentials = credentials;
     }
 }

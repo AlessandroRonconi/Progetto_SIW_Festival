@@ -44,4 +44,23 @@ public class RecensioneService {
         return this.recensioneRepository.save(recensione);
     }
 
+    public Recensione findById(Long rId) {
+        return this.recensioneRepository.findById(rId)
+                .orElseThrow(() -> new ResourceNotFoundException("Recensione non trovata"));
+    }
+
+    public boolean isOwner(Recensione r, String username) {
+        if (r == null || r.getUtente() == null || r.getUtente().getCredentials() == null) {
+            return false;
+        }
+        return r.getUtente().getCredentials().getUsername().equals(username);
+    }
+
+    public Recensione updateRecensione(Long rId, String nuovoTesto, Long nuovoVoto) {
+        Recensione recensione = this.findById(rId);
+        recensione.setTesto(nuovoTesto);
+        recensione.setVoto(nuovoVoto);
+        return this.recensioneRepository.save(recensione);
+    }
+
 }
