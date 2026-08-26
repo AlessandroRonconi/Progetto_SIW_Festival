@@ -1,5 +1,7 @@
 package it.uniroma3.siw.siw_festival.controller;
 
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -67,10 +69,15 @@ public class FilmController {
 
     @GetMapping("/film/{fId}/recensioni/{rId}/edit")
     public String getRecensioneEdit(@PathVariable Long fId, @PathVariable Long rId, Model model,
-            @AuthenticationPrincipal UserDetails userDetails) {
+            Authentication authentication) {
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/login";
+        }
         Recensione r = this.recensioneService.findById(rId);
-        if (!this.recensioneService.isOwner(r, userDetails.getUsername()))
-            return "redirect:/film/" + fId;
+        if (!this.recensioneService.isOwner(r, authentication.getName())) {
+            throw new AccessDeniedException("Non sei l'autore di questa recensione.");
+        }
         model.addAttribute("recensione", r);
         model.addAttribute("fId", fId);
         return "recensioni/editForm";
@@ -81,12 +88,17 @@ public class FilmController {
             @PathVariable Long rId,
             @Valid @ModelAttribute("recensione") Recensione recensioneForm,
             BindingResult bindingResult,
-            @AuthenticationPrincipal UserDetails userDetails,
+            Authentication authentication,
             Model model) {
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/login";
+        }
+
         Recensione r = this.recensioneService.findById(rId);
 
-        if (!this.recensioneService.isOwner(r, userDetails.getUsername())) {
-            return "redirect:/film/" + fId;
+        if (!this.recensioneService.isOwner(r, authentication.getName())) {
+            throw new AccessDeniedException("Non sei l'autore di questa recensione.");
         }
 
         if (bindingResult.hasErrors()) {
@@ -95,6 +107,45 @@ public class FilmController {
         }
 
         this.recensioneService.updateRecensione(rId, recensioneForm.getTesto(), recensioneForm.getVoto());
+        return "redirect:/film/" + fId;
+    }
+
+    @GetMapping("/film/{fId}/recensioni/{rId}/delete")
+    public String getRecensioneDelete(@PathVariable Long fId,
+            @PathVariable Long rId,
+            Authentication authentication) {
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/login";
+        }
+
+        Recensione r = this.recensioneService.findById(rId);
+
+        if (!this.recensioneService.isOwner(r, authentication.getName())) {
+            throw new AccessDeniedException("Non sei l'autore di questa recensione.");
+        }
+
+        this.recensioneService.deleteById(rId);
+
+        return "redirect:/film/" + fId;
+    }
+
+    @PostMapping("/film/{fId}/recensioni/{rId}/delete")
+    public String postRecensioneDelete(@PathVariable Long fId,
+            @PathVariable Long rId,
+            Authentication authentication) {
+
+        // Controlla se l'utente è effettivamente autenticato
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return "redirect:/login";
+        }
+
+        Recensione r = this.recensioneService.findById(rId);
+
+        if (!this.recensioneService.isOwner(r, authentication.getName())) {
+            throw new AccessDeniedException("Non sei l'autore di questa recensione.");
+        }
+
+        this.recensioneService.deleteById(rId);
         return "redirect:/film/" + fId;
     }
 

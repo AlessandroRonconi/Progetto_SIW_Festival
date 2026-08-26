@@ -63,4 +63,8 @@ public class RecensioneService {
         return this.recensioneRepository.save(recensione);
     }
 
+    public void deleteById(Long rId) {
+        this.recensioneRepository.deleteById(rId);
+    }
+
 }

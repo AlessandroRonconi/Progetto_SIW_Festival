@@ -60,6 +60,11 @@
                 <a th:href="@{'/film/' + ${film.id} + '/recensioni/' + ${recensione.id} + '/edit'}">
                     <button type="button">Modifica</button>
                 </a>
+                <form th:action="@{'/film/' + ${film.id} + '/recensioni/' + ${recensione.id} + '/delete'}" method="POST"
+                    style="display:inline;"
+                    onclick="return confirm('Sei sicuro di voler eliminare questa recensione?');">
+                    <button type="submit">Elimina</button>
+                </form>
             </span>
         </li>
     </ul>
