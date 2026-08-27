@@ -46,6 +46,8 @@ public class SecurityConfiguration {
             authorize.requestMatchers(HttpMethod.GET, "/film/{id}/recensioni/**").authenticated();
             authorize.requestMatchers(HttpMethod.POST, "/film/{id}/recensioni/**").authenticated();
 
+            authorize.requestMatchers(HttpMethod.POST, "/logout").authenticated();
+
             authorize.requestMatchers(HttpMethod.GET, "/admin/**").hasAuthority("ADMIN");
             authorize.requestMatchers(HttpMethod.POST, "/admin/**").hasAuthority("ADMIN");
         });

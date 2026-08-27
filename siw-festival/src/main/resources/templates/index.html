@@ -13,13 +13,20 @@
         <a href="/festival">Lista dei Festival</a>
     </h1>
 
-    <h2>
+    <h2 th:if="${userDetails == null}">
         <a href="/login">Effettua il Login</a>
     </h2>
 
-    <h2>
+    <h2 th:if="${userDetails == null}">
         <a href="/register">Registrati</a>
     </h2>
+
+    <div th:if="${userDetails}">
+        <span th:text="${userDetails.username}"></span>
+        <form th:action="@{/logout}" method="POST" style="display:inline;">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
 </body>
 
 </html>
