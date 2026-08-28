@@ -17,6 +17,9 @@
         <ul>
             <li th:each="festival : ${festivalList}">
                 <a th:href="@{'/festival/' + ${festival.id}}" th:text="${festival.nome}">Festival placeholder</a>
+                <a th:href="@{'/admin/festival/' + ${festival.id} + '/edit'}">
+                    <button type="submit">Modifica</button>
+                </a>
             </li>
         </ul>
     </div>

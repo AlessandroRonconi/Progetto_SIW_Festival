@@ -66,7 +66,7 @@ public class FilmController {
     }
 
     @GetMapping("/film/{fId}/recensioni/{rId}/edit")
-    public String getRecensioneEdit(@PathVariable Long fId, @PathVariable Long rId, Model model,
+    public String getRecensioneEditForm(@PathVariable Long fId, @PathVariable Long rId, Model model,
             Authentication authentication) {
 
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -82,7 +82,7 @@ public class FilmController {
     }
 
     @PostMapping("/film/{fId}/recensioni/{rId}/edit")
-    public String postRecensioneEdit(@PathVariable Long fId,
+    public String postRecensioneEditForm(@PathVariable Long fId,
             @PathVariable Long rId,
             @Valid @ModelAttribute("recensione") Recensione recensioneForm,
             BindingResult bindingResult,
@@ -104,7 +104,7 @@ public class FilmController {
             return "recensioni/editForm";
         }
 
-        this.recensioneService.updateRecensione(rId, recensioneForm.getTesto(), recensioneForm.getVoto());
+        this.recensioneService.update(rId, recensioneForm.getTesto(), recensioneForm.getVoto());
         return "redirect:/film/" + fId;
     }
 

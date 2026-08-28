@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> SIWFestival - Modifica Festival </title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+</head>
+
+<body>
+    <h3>
+        <a href="/">Torna alla homepage</a>
+    </h3>
+
+    <h1>Modifica Festival</h1>
+
+    <form th:action="@{/admin/festival/{id}/edit(id=${festival.id})}" method="POST" th:object="${festival}">
+        <div>
+            Nome: <span><input type="text" th:field="*{nome}" /></span>
+            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="error-message"></span>
+        </div>
+        Anno: <span><input type="text" th:field="*{anno}" /></span>
+        <span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}" class="error-message"></span>
+        <div>
+            Città: <span><input type="text" th:field="*{Citta}" /></span>
+            <span th:if="${#fields.hasErrors('Citta')}" th:errors="*{citta}" class="error-message"></span>
+        </div>
+        <div>
+            Data inizio: <span><input type="date" th:field="*{dataInizio}" /></span>
+            <span th:if="${#fields.hasErrors('dataInizio')}" th:errors="*{dataInizio}" class="error-message"></span>
+        </div>
+        <div>
+            Data fine: <span><input type="date" th:field="*{dataFine}" /></span>
+            <span th:if="${#fields.hasErrors('dataFine')}" th:errors="*{dataFine}" class="error-message"></span>
+        </div>
+        <div>
+            Descrizione: <span><input type="text" th:field="*{descrizione}" /></span>
+            <span th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}" class="error-message"></span>
+        </div>
+        <div>
+            <button type="submit">Salva</button>
+        </div>
+    </form>
+</body>
+
+</html>

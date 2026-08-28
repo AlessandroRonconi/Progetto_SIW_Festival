@@ -56,7 +56,7 @@ public class RecensioneService {
         return r.getUtente().getCredentials().getUsername().equals(username);
     }
 
-    public Recensione updateRecensione(Long rId, String nuovoTesto, Long nuovoVoto) {
+    public Recensione update(Long rId, String nuovoTesto, Long nuovoVoto) {
         Recensione recensione = this.findById(rId);
         recensione.setTesto(nuovoTesto);
         recensione.setVoto(nuovoVoto);

@@ -80,4 +80,27 @@ public class FestivalController {
         }
     }
 
+    @GetMapping("/admin/festival/{id}/edit")
+    public String getFestivalEditForm(@PathVariable Long id, Model model) {
+        model.addAttribute("festival", this.festivalService.findById(id));
+        return "admin/festival/editForm";
+    }
+
+    @PostMapping("/admin/festival/{id}/edit")
+    public String postFestivalEditForm(@PathVariable Long id, @Valid @ModelAttribute Festival festivalForm,
+            BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("festival", festivalForm);
+            return "admin/festival/editForm";
+        }
+        try {
+            this.festivalService.update(id, festivalForm.getNome(), festivalForm.getAnno(), festivalForm.getCitta(),
+                    festivalForm.getDataInizio(), festivalForm.getDataFine(), festivalForm.getDescrizione());
+        } catch (DuplicateElementException e) {
+            model.addAttribute("festival", festivalForm);
+            return "admin/festival/form";
+        }
+        return "redirect:/festival/" + id;
+    }
+
 }

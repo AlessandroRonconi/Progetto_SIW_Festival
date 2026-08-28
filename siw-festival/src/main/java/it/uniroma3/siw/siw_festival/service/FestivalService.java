@@ -1,5 +1,6 @@
 package it.uniroma3.siw.siw_festival.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,5 +43,18 @@ public class FestivalService {
             throw new DuplicateElementException(
                     "Il festival " + festivalForm.getNome() + " " + festivalForm.getAnno() + " esiste già.");
         this.festivalRepository.save(festivalForm);
+    }
+
+    public Festival update(Long id, String nome, Long anno, String citta, LocalDate dataInizio, LocalDate dataFine,
+            String descrizione) {
+        Festival f = this.findById(id);
+        f.setNome(nome);
+        f.setAnno(anno);
+        f.setCitta(citta);
+        f.setDataInizio(dataInizio);
+        f.setDataFine(dataFine);
+        f.setDescrizione(descrizione);
+
+        return this.festivalRepository.save(f);
     }
 }
