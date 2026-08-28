@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> SIWFestival - Nuovo Film </title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+</head>
+
+<body>
+    <h3>
+        <a href="/">Torna alla homepage</a>
+    </h3>
+
+    <h1>Nuovo Film</h1>
+
+    <form th:action="@{/admin/film/new}" method="POST" th:object="${film}">
+
+        <div>
+            Titolo: <span><input type="text" th:field="*{titolo}" /></span>
+            <span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}" class="error-message"></span>
+        </div>
+        <div>
+            Anno: <span><input type="text" th:field="*{anno}" /></span>
+            <span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}" class="error-message"></span>
+        </div>
+        <div>
+            Regista:
+            <span>
+                <select th:field="*{regista}">
+                    <option value="" disabled selected>-- Seleziona un Regista --</option>
+                    <option th:each="r : ${registiList}" th:value="${r.id}" th:text="${r.nome + ' ' + r.cognome}">
+                    </option>
+                </select>
+            </span>
+            <span th:if="${#fields.hasErrors('regista')}" th:errors="*{regista}" class="error-message"></span>
+        </div>
+        <div>
+            Durata: <span><input type="text" th:field="*{durata}" /></span>
+            <span th:if="${#fields.hasErrors('durata')}" th:errors="*{durata}" class="error-message"></span>
+        </div>
+        <div>
+            Genere: <span><input type="text" th:field="*{genere}" /></span>
+            <span th:if="${#fields.hasErrors('genere')}" th:errors="*{genere}" class="error-message"></span>
+        </div>
+        <div>
+            Paese di produzione: <span><input type="text" th:field="*{paeseProduzione}" /></span>
+            <span th:if="${#fields.hasErrors('paeseProduzione')}" th:errors="*{paeseProduzione}"
+                class="error-message"></span>
+        </div>
+        <div>
+            <button type="submit">Salva</button>
+        </div>
+    </form>
+</body>
+
+</html>

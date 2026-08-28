@@ -12,21 +12,25 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import it.uniroma3.siw.siw_festival.exception.DuplicateElementException;
 import it.uniroma3.siw.siw_festival.model.Film;
 import it.uniroma3.siw.siw_festival.model.Recensione;
 import it.uniroma3.siw.siw_festival.service.FilmService;
 import it.uniroma3.siw.siw_festival.service.RecensioneService;
+import it.uniroma3.siw.siw_festival.service.RegistaService;
 import jakarta.validation.Valid;
 
 @Controller
 public class FilmController {
 
+    private final RegistaService registaService;
     private final RecensioneService recensioneService;
     private final FilmService filmService;
 
-    public FilmController(FilmService filmService, RecensioneService recensioneService) {
+    public FilmController(FilmService filmService, RecensioneService recensioneService, RegistaService registaService) {
         this.filmService = filmService;
         this.recensioneService = recensioneService;
+        this.registaService = registaService;
     }
 
     @GetMapping("/film/{id}")
@@ -145,6 +149,65 @@ public class FilmController {
 
         this.recensioneService.deleteById(rId);
         return "redirect:/film/" + fId;
+    }
+
+    @GetMapping("/admin/film")
+    public String getAdminFilmList(Model model) {
+        model.addAttribute("filmList", this.filmService.findAll());
+        return "admin/film/list";
+    }
+
+    @GetMapping("/admin/film/new")
+    public String getFilmForm(Model model) {
+        model.addAttribute("film", new Film());
+        model.addAttribute("registiList", this.registaService.findAll());
+        return "/admin/film/form";
+    }
+
+    @PostMapping("/admin/film/new")
+    public String postFilmForm(@Valid @ModelAttribute Film film,
+            BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("film", film);
+            model.addAttribute("registiList", this.registaService.findAll());
+            return "admin/film/form";
+        }
+        try {
+            this.filmService.save(film);
+            return "redirect:/admin/film";
+        } catch (DuplicateElementException e) {
+            model.addAttribute("film", film);
+            model.addAttribute("registiList", this.registaService.findAll());
+            return "admin/film/form";
+        }
+    }
+
+    @GetMapping("/admin/film/{id}/edit")
+    public String getFilmEditForm(@PathVariable Long id, Model model) {
+        model.addAttribute("film", this.filmService.findById(id));
+        model.addAttribute("registiList", this.registaService.findAll());
+        return "admin/film/editForm";
+    }
+
+    @PostMapping("/admin/film/{id}/edit")
+    public String postFilmEditForm(@PathVariable Long id, @Valid @ModelAttribute Film filmForm,
+            BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("film", this.filmService.findById(id));
+            model.addAttribute("registiList", this.registaService.findAll());
+            return "admin/film/editForm";
+        }
+        try {
+            this.filmService.update(id, filmForm.getTitolo(), filmForm.getAnno(), filmForm.getDurata(),
+                    filmForm.getGenere(), filmForm.getRegista(), filmForm.getPaeseProduzione());
+
+        } catch (DuplicateElementException e) {
+            model.addAttribute("film", this.filmService.findById(id));
+            model.addAttribute("registiList", this.registaService.findAll());
+            return "admin/film/editForm";
+        }
+        return "redirect:/film/" + id;
     }
 
 }

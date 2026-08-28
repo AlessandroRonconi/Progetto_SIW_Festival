@@ -6,4 +6,6 @@ import it.uniroma3.siw.siw_festival.model.Film;
 
 public interface FilmRepository extends CrudRepository<Film, Long>{
 
+    public boolean existsByTitoloAndAnno(String titolo, Long anno);
+
 }

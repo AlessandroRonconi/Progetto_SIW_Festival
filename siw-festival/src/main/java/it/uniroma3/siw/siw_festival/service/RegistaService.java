@@ -1,5 +1,8 @@
 package it.uniroma3.siw.siw_festival.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +23,12 @@ public class RegistaService {
     public Regista findById(Long id) {
         return this.registaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Regista non trovato"));
+    }
+
+    public List<Regista> findAll() {
+        List<Regista> list = new ArrayList<>();
+        this.registaRepository.findAll().forEach(list::add);
+        return list;
     }
 
 }

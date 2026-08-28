@@ -1,6 +1,5 @@
 package it.uniroma3.siw.siw_festival.controller;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -64,8 +63,8 @@ public class FestivalController {
     }
 
     @PostMapping("/admin/festival/new")
-    public String postFestivalForm(@Valid @ModelAttribute("festival") Festival festival,
-            BindingResult bindingResult, Authentication authentication, Model model) {
+    public String postFestivalForm(@Valid @ModelAttribute Festival festival,
+            BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("festival", festival);

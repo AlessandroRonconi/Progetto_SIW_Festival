@@ -18,6 +18,7 @@ insert into festival(id, nome, anno, citta, data_inizio, data_fine, descrizione)
 
 -- REGISTA
 insert into regista(id, nome, cognome, data_nascita, nazionalita) values(nextval('regista_seq'), 'Christopher', 'Nolan', '1970-07-30', 'UK');
+insert into regista(id, nome, cognome, data_nascita, nazionalita) values(nextval('regista_seq'), 'Jon', 'Favreau', '1966-10-19', 'USA');
 
 -- FILM (ManyToOne verso Regista -> colonna regista_id)
 insert into film(id, titolo, anno, durata, genere, paese_produzione, regista_id) values(nextval('film_seq'), 'Inception', 2010, 148, 'Fantascienza', 'UK/USA', 1);

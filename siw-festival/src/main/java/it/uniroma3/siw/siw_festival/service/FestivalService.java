@@ -41,7 +41,7 @@ public class FestivalService {
     public void save(Festival festivalForm) {
         if (this.festivalRepository.existsByNomeAndAnno(festivalForm.getNome(), festivalForm.getAnno()))
             throw new DuplicateElementException(
-                    "Il festival " + festivalForm.getNome() + " " + festivalForm.getAnno() + " esiste già.");
+                    "Il festival " + festivalForm.getNome() + " " + festivalForm.getAnno() + " è già presente nel sistema.");
         this.festivalRepository.save(festivalForm);
     }
 

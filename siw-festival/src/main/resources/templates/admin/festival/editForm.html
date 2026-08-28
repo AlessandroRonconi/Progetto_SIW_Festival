@@ -20,8 +20,10 @@
             Nome: <span><input type="text" th:field="*{nome}" /></span>
             <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="error-message"></span>
         </div>
-        Anno: <span><input type="text" th:field="*{anno}" /></span>
-        <span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}" class="error-message"></span>
+        <div>
+            Anno: <span><input type="text" th:field="*{anno}" /></span>
+            <span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}" class="error-message"></span>
+        </div>
         <div>
             Città: <span><input type="text" th:field="*{Citta}" /></span>
             <span th:if="${#fields.hasErrors('Citta')}" th:errors="*{citta}" class="error-message"></span>
