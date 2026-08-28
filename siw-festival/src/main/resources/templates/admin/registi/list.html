@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> SIWFestival - Lista dei Registi (Admin)</title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+</head>
+
+<body>
+    <h3>
+        <a href="/">Torna alla homepage</a>
+    </h3>
+
+    <div>
+        <ul>
+            <li th:each="regista : ${registiList}">
+                <a th:href="@{'/registi/' + ${regista.id}}" th:text="${regista.nome} + ' ' + ${regista.cognome}">Francesco Cilurzo</a>
+                <a th:href="@{'/admin/registi/' + ${regista.id} + '/edit'}">
+                    <button type="submit">Modifica</button>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <a th:href="@{/admin/registi/new}">Nuovo regista</a>
+</body>
+
+</html>
