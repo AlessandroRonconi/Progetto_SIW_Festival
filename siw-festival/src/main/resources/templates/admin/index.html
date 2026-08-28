@@ -4,13 +4,30 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> SIWFestival - Home </title>
+    <title> SIWFestival - Admin Console </title>
     <link rel="stylesheet" th:href="@{/css/stile.css}">
 </head>
 
 <body>
     <h1>
-        <a href="/festival">Lista dei Festival</a>
+        <a href="/admin/festival"><span th:text="'Lista dei Festival' + ' (' + ${numeroFestival} + ')'">Lista dei
+                Festival (1)</span></a>
+    </h1>
+
+    <h1>
+        <a href="/admin/film">Lista dei Film</a>
+    </h1>
+
+    <h1>
+        <a href="/admin/proiezioni">Lista delle Proiezioni</a>
+    </h1>
+
+    <h1>
+        <a href="/admin/registi">Lista dei Registi</a>
+    </h1>
+
+    <h1>
+        <a href="/admin/sale">Lista delle Sale</a>
     </h1>
 
     <h2 th:if="${userDetails == null}">
@@ -26,10 +43,6 @@
         <form th:action="@{/logout}" method="POST" style="display:inline;">
             <button type="submit">Logout</button>
         </form>
-    </div>
-
-    <div sec:authorize="hasAnyAuthority('ADMIN')">
-        <a href="/admin">Console da amministratore</a>
     </div>
 </body>
 

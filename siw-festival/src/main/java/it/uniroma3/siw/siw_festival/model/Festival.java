@@ -3,6 +3,8 @@ package it.uniroma3.siw.siw_festival.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,9 +34,11 @@ public class Festival {
     private String citta;
     @NotNull
     @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataInizio;
     @NotNull
     @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataFine;
     @Column
     private String descrizione;

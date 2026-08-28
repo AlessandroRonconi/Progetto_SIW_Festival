@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.siw.siw_festival.exception.DuplicateElementException;
 import it.uniroma3.siw.siw_festival.exception.ResourceNotFoundException;
 import it.uniroma3.siw.siw_festival.model.Festival;
 import it.uniroma3.siw.siw_festival.repository.FestivalRepository;
@@ -28,6 +29,18 @@ public class FestivalService {
     }
 
     public Festival findById(Long id) {
-        return this.festivalRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Festival non trovato"));
+        return this.festivalRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Festival non trovato"));
+    }
+
+    public Long count() {
+        return this.festivalRepository.count();
+    }
+
+    public void save(Festival festivalForm) {
+        if (this.festivalRepository.existsByNomeAndAnno(festivalForm.getNome(), festivalForm.getAnno()))
+            throw new DuplicateElementException(
+                    "Il festival " + festivalForm.getNome() + " " + festivalForm.getAnno() + " esiste già.");
+        this.festivalRepository.save(festivalForm);
     }
 }

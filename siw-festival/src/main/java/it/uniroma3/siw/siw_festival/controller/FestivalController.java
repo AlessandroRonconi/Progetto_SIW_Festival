@@ -1,13 +1,18 @@
 package it.uniroma3.siw.siw_festival.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import it.uniroma3.siw.siw_festival.exception.DuplicateElementException;
 import it.uniroma3.siw.siw_festival.model.Festival;
 import it.uniroma3.siw.siw_festival.service.FestivalService;
-
+import jakarta.validation.Valid;
 
 @Controller
 public class FestivalController {
@@ -37,7 +42,7 @@ public class FestivalController {
         model.addAttribute("filmList", f.getFilm());
         return "film/list";
     }
-    
+
     @GetMapping("/festival/{id}/proiezioni")
     public String getFestivalProiezioni(@PathVariable Long id, Model model) {
         Festival f = this.festivalService.findById(id);
@@ -45,4 +50,34 @@ public class FestivalController {
         model.addAttribute("proiezioniList", f.getProiezioni());
         return "proiezioni/list";
     }
+
+    @GetMapping("/admin/festival")
+    public String getAdminFestivalList(Model model) {
+        model.addAttribute("festivalList", this.festivalService.findAll());
+        return "admin/festival/list";
+    }
+
+    @GetMapping("/admin/festival/new")
+    public String getFestivalForm(Model model) {
+        model.addAttribute("festival", new Festival());
+        return "admin/festival/form";
+    }
+
+    @PostMapping("/admin/festival/new")
+    public String postFestivalForm(@Valid @ModelAttribute("festival") Festival festival,
+            BindingResult bindingResult, Authentication authentication, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("festival", festival);
+            return "admin/festival/form";
+        }
+        try {
+            this.festivalService.save(festival);
+            return "redirect:/admin/festival";
+        } catch (DuplicateElementException e) {
+            model.addAttribute("festival", festival);
+            return "admin/festival/form";
+        }
+    }
+
 }

@@ -53,15 +53,13 @@ public class FilmController {
 
     @PostMapping("/film/{id}/recensioni/new")
     public String postRecensioneForm(@PathVariable Long id,
-            @Valid @ModelAttribute("recensione") Recensione recensioneForm,
-            BindingResult bindingResult,
-            @AuthenticationPrincipal UserDetails userDetails,
-            Model model) {
+            @Valid @ModelAttribute("recensione") Recensione recensioneForm, BindingResult bindingResult,
+            Authentication authentication, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("film", this.filmService.findById(id));
             return "recensioni/form";
         }
-        this.recensioneService.creaRecensione(id, userDetails.getUsername(), recensioneForm.getTesto(),
+        this.recensioneService.creaRecensione(id, authentication.getName(), recensioneForm.getTesto(),
                 recensioneForm.getVoto());
 
         return "redirect:/film/" + id;
