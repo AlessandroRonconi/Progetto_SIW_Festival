@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> SIWFestival - Lista delle Sale (Admin)</title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+</head>
+
+<body>
+    <h3>
+        <a href="/">Torna alla homepage</a>
+    </h3>
+
+    <div>
+        <ul>
+            <li th:each="sala : ${saleList}">
+                <a th:href="@{'/sale/' + ${sala.id}}" th:text="${sala.nome} + ' (' + ${sala.indirizzo} + ' )'">Sala placeholder (Via Calabria 67, Lamezia Terme)</a>
+                <a th:href="@{'/admin/sale/' + ${sala.id} + '/edit'}">
+                    <button type="submit">Modifica</button>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <a th:href="@{/admin/sale/new}">Nuova sala</a>
+</body>
+
+</html>
