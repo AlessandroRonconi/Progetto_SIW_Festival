@@ -13,17 +13,21 @@ import it.uniroma3.siw.siw_festival.model.Festival;
 import it.uniroma3.siw.siw_festival.model.Film;
 import it.uniroma3.siw.siw_festival.repository.FestivalRepository;
 import it.uniroma3.siw.siw_festival.repository.FilmRepository;
+import it.uniroma3.siw.siw_festival.repository.ProiezioneRepository;
 
 @Service
 @Transactional
 public class FestivalService {
 
+    private final ProiezioneRepository proiezioneRepository;
     private final FilmRepository filmRepository;
     private final FestivalRepository festivalRepository;
 
-    public FestivalService(FestivalRepository festivalRepository, FilmRepository filmRepository) {
+    public FestivalService(FestivalRepository festivalRepository, FilmRepository filmRepository,
+            ProiezioneRepository proiezioneRepository) {
         this.festivalRepository = festivalRepository;
         this.filmRepository = filmRepository;
+        this.proiezioneRepository = proiezioneRepository;
     }
 
     @Transactional(readOnly = true)
@@ -78,6 +82,8 @@ public class FestivalService {
         Festival festival = this.findById(festivalId);
         Film film = this.filmRepository.findById(filmId)
                 .orElseThrow(() -> new ResourceNotFoundException("Film non trovato"));
+
+        this.proiezioneRepository.deleteByFestivalAndFilm(festival, film);
 
         festival.getFilm().remove(film);
         this.festivalRepository.save(festival);

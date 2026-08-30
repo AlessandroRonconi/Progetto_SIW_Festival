@@ -1,7 +1,9 @@
 package it.uniroma3.siw.siw_festival.model;
 
 import java.util.List;
+import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,25 +11,37 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Film {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotBlank
+    @Column(nullable = false)
     private String titolo;
+    @NotBlank
+    @Column(nullable = false)
     private Long anno;
+    @NotNull
+    @Column(nullable = false)
     private Long durata; // in minuti
+    @NotBlank
+    @Column(nullable = false)
     private String genere;
+    @NotBlank
+    @Column(nullable = false)
     private String paeseProduzione;
 
     @ManyToMany(mappedBy = "film")
     private List<Festival> festival;
     @ManyToOne
     private Regista regista;
-    @OneToMany(mappedBy="film")
+    @OneToMany(mappedBy = "film")
     private List<Proiezione> proiezioni;
-    @OneToMany(mappedBy="film")
+    @OneToMany(mappedBy = "film")
     private List<Recensione> recensioni;
 
     public Long getId() {
@@ -108,6 +122,21 @@ public class Film {
 
     public void setRecensioni(List<Recensione> recensioni) {
         this.recensioni = recensioni;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Film film = (Film) o;
+        return id != null && Objects.equals(id, film.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 
 }

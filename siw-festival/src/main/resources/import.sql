@@ -45,6 +45,16 @@ insert into sala(id, nome, indirizzo, capienza) values(nextval('sala_seq'), 'Sal
 
 -- PROIEZIONE (ManyToOne verso Festival, Film, Sala)
 insert into proiezione(id, data, ora, festival_id, film_id, sala_id) values(nextval('proiezione_seq'), '2026-08-02', '21:00:00', 1, 1, 1);
+insert into proiezione(id, data, ora, festival_id, film_id, sala_id) values(nextval('proiezione_seq'), '2026-08-03', '18:30:00', 1, 51, 51);  -- Dune @ Ottavia 2026, Sala Truffaut
+insert into proiezione(id, data, ora, festival_id, film_id, sala_id) values(nextval('proiezione_seq'), '2026-08-04', '21:00:00', 1, 201, 101); -- Interstellar @ Ottavia 2026, Sala Kubrick
+insert into proiezione(id, data, ora, festival_id, film_id, sala_id) values(nextval('proiezione_seq'), '2025-07-08', '20:00:00', 51, 51, 1);   -- Dune @ Ottavia 2025, Sala Nolan
+insert into proiezione(id, data, ora, festival_id, film_id, sala_id) values(nextval('proiezione_seq'), '2025-06-07', '21:30:00', 101, 101, 51); -- Barbie @ SBTCinema, Sala Truffaut
+insert into proiezione(id, data, ora, festival_id, film_id, sala_id) values(nextval('proiezione_seq'), '2025-06-09', '19:00:00', 101, 151, 101); -- Parasite @ SBTCinema, Sala Kubrick
 
 -- RECENSIONE (ManyToOne verso Film e User)
-insert into recensione(id, testo, voto, data, film_id, utente_id) values(nextval('recensione_seq'), 'Un capolavoro di fantascienza intelligente.', 5, '2026-08-03', 1, 1);
+insert into recensione(id, testo, voto, data, film_id, utente_id) values(nextval('recensione_seq'), 'Un capolavoro di fantascienza intelligente.', 9, '2026-08-03', 1, 1);
+insert into recensione(id, testo, voto, data, film_id, utente_id) values(nextval('recensione_seq'), 'Visivamente straordinario, un''esperienza da vedere al cinema.', 9, '2026-08-04', 51, 1);   -- Dune, Mario
+insert into recensione(id, testo, voto, data, film_id, utente_id) values(nextval('recensione_seq'), 'Ottimo film ma forse un po'' lungo.', 8, '2025-07-09', 51, 51);                          -- Dune, Giorgia
+insert into recensione(id, testo, voto, data, film_id, utente_id) values(nextval('recensione_seq'), 'Leggero e divertente, sorprendentemente profondo.', 8, '2025-06-08', 101, 101);           -- Barbie, admin
+insert into recensione(id, testo, voto, data, film_id, utente_id) values(nextval('recensione_seq'), 'Una sceneggiatura perfetta dall''inizio alla fine.', 10, '2025-06-10', 151, 1);            -- Parasite, Mario
+insert into recensione(id, testo, voto, data, film_id, utente_id) values(nextval('recensione_seq'), 'Uno dei migliori film di fantascienza mai fatti.', 9, '2026-08-05', 201, 51);             -- Interstellar, Giorgia

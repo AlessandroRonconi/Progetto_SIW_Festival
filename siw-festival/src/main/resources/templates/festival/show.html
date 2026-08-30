@@ -45,9 +45,7 @@
         <tr th:each="proiezione : ${proiezioniList}">
             <td th:text="${#temporals.format(proiezione.data, 'dd/MM/yyyy')}">20/02/2025</td>
             <td th:text="${proiezione.ora}">15:18</td>
-            <td>
-                <a th:href="@{'/film/' + ${proiezione.film.id}}" th:text="${proiezione.film.titolo}">Inception</a>
-            </td>
+            <td th:text="${proiezione.film.titolo}">Inception</td>
             <td th:text="${proiezione.sala.nome}">Cinema Cadrega</td>
             <td th:text="${proiezione.sala.indirizzo}">Via Subaru 1, Milano</td>
         </tr>

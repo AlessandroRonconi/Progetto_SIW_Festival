@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Nuova proiezione (Admin)</title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+</head>
+
+<body>
+    <h3><a th:href="@{'/admin/festival/' + ${festival.id}}">Torna al festival</a></h3>
+    <h1 th:text="'Aggiungi una proiezione a ' + ${festival.nome}">Nuova proiezione</h1>
+
+    <p th:if="${errore}" th:text="${errore}" style="color:red;">Errore</p>
+
+    <form th:action="@{'/admin/festival/' + ${festival.id} + '/proiezioni/new'}" th:object="${proiezione}"
+        method="POST">
+        <div>
+            <label for="data">Data:</label>
+            <input type="date" id="data" th:field="*{data}" required />
+            <span th:if="${#fields.hasErrors('data')}" th:errors="*{data}" style="color:red;"></span>
+        </div>
+
+        <br><br>
+
+        <div>
+            <label for="ora">Ora:</label>
+            <input type="time" id="ora" th:field="*{ora}" required />
+            <span th:if="${#fields.hasErrors('ora')}" th:errors="*{ora}" style="color:red;"></span>
+        </div>
+
+        <br><br>
+
+        <div>
+            <label for="film">Film:</label>
+            <select id="film" th:field="*{film.id}" required>
+                <option th:each="f : ${filmList}" th:value="${f.id}" th:text="${f.titolo}">Titolo film</option>
+            </select>
+            <span th:if="${#fields.hasErrors('film')}" th:errors="*{film}" style="color:red;"></span>
+        </div>
+
+        <br><br>
+
+        <div>
+            <label for="sala">Sala:</label>
+            <select id="sala" th:field="*{sala.id}" required>
+                <option th:each="s : ${salaList}" th:value="${s.id}"
+                    th:text="${s.nome} + ' (' + ${s.capienza} + ' posti)'">
+                    Sala</option>
+            </select>
+            <span th:if="${#fields.hasErrors('sala')}" th:errors="*{sala}" style="color:red;"></span>
+        </div>
+
+        <br><br>
+
+        <button type="submit">Salva</button>
+    </form>
+</body>
+
+</html>

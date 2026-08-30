@@ -30,8 +30,8 @@
         <ul>
             <li th:each="film : ${filmList}">
                 <a th:href="@{'/film/' + ${film.id}}" th:text="${film.titolo}">Inception</a>
-                <form th:action="@{'/admin/festival/' + ${festival.id} + '/film/' + ${film.id} + '/delete'}" method="POST"
-                    style="display:inline;"
+                <form th:action="@{'/admin/festival/' + ${festival.id} + '/film/' + ${film.id} + '/delete'}"
+                    method="POST" style="display:inline;"
                     onclick="return confirm('Sei sicuro di voler rimuovere questo film?');">
                     <button type="submit">Rimuovi</button>
                 </form>
@@ -48,17 +48,27 @@
             <td>Film</td>
             <td>Sala</td>
             <td>Indirizzo</td>
+            <td>Opzioni</td>
         </tr>
         <tr th:each="proiezione : ${proiezioniList}">
             <td th:text="${#temporals.format(proiezione.data, 'dd/MM/yyyy')}">20/02/2025</td>
             <td th:text="${proiezione.ora}">15:18</td>
-            <td>
-                <a th:href="@{'/film/' + ${proiezione.film.id}}" th:text="${proiezione.film.titolo}">Inception</a>
-            </td>
+            <td th:text="${proiezione.film.titolo}">Inception</td>
             <td th:text="${proiezione.sala.nome}">Cinema Cadrega</td>
             <td th:text="${proiezione.sala.indirizzo}">Via Subaru 1, Milano</td>
+            <td>
+                <a th:href="@{'/admin/proiezioni/' + ${proiezione.id} + '/edit'}">
+                    <button type="button">Modifica</button>
+                </a>
+                <form th:action="@{'/admin/proiezioni/' + ${proiezione.id} + '/delete'}" method="POST"
+                    style="display:inline;"
+                    onclick="return confirm('Sei sicuro di voler eliminare questa proiezione?');">
+                    <button type="submit">Elimina</button>
+                </form>
+            </td>
         </tr>
     </table>
+    <h3><a th:href="@{'/admin/festival/' + ${festival.id} + '/proiezioni/new'}">Aggiungi una proiezione</a></h3>
 
 </body>
 
