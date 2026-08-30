@@ -30,30 +30,26 @@ public class FestivalController {
 
     @GetMapping("/festival/{id}")
     public String getFestivalDetail(@PathVariable Long id, Model model) {
-        model.addAttribute("festival", this.festivalService.findById(id));
-        return "festival/show";
-    }
-
-    @GetMapping("/festival/{id}/film")
-    public String getFestivalFilm(@PathVariable Long id, Model model) {
         Festival f = this.festivalService.findById(id);
         model.addAttribute("festival", f);
         model.addAttribute("filmList", f.getFilm());
-        return "film/list";
-    }
-
-    @GetMapping("/festival/{id}/proiezioni")
-    public String getFestivalProiezioni(@PathVariable Long id, Model model) {
-        Festival f = this.festivalService.findById(id);
-        model.addAttribute("festival", f);
         model.addAttribute("proiezioniList", f.getProiezioni());
-        return "proiezioni/list";
+        return "festival/show";
     }
 
     @GetMapping("/admin/festival")
     public String getAdminFestivalList(Model model) {
         model.addAttribute("festivalList", this.festivalService.findAll());
         return "admin/festival/list";
+    }
+
+    @GetMapping("/admin/festival/{id}")
+    public String getAdminFestivalDetail(@PathVariable Long id, Model model) {
+        Festival f = this.festivalService.findById(id);
+        model.addAttribute("festival", f);
+        model.addAttribute("filmList", f.getFilm());
+        model.addAttribute("proiezioniList", f.getProiezioni());
+        return "admin/festival/show";
     }
 
     @GetMapping("/admin/festival/new")
@@ -101,5 +97,4 @@ public class FestivalController {
         }
         return "redirect:/festival/" + id;
     }
-
 }

@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text="${festival.nome} + ' ' + ${festival.anno} + ' - Programmazione'">Lorem Ipsum Film Festival 2025 -
-        Programmazione
+    <title th:text="${festival.nome} + ' ' + ${festival.anno} + ' - Dettagli (Admin)'">Lorem Ipsum Film Festival 2025 -
+        Dettagli (Admin)
     </title>
     <link rel="stylesheet" th:href="@{/css/stile.css}">
 </head>
@@ -15,6 +15,26 @@
         <a href="/">Torna alla homepage</a>
     </h3>
 
+    <h1 th:text="${festival.nome} + ' ' + ${festival.anno}">Lorem Ipsum Film Festival 2025</h1>
+
+    <h2
+        th:text="${festival.citta} + ', ' + ${#temporals.format(festival.dataInizio, 'dd/MM/yyyy')} + ' - ' + ${#temporals.format(festival.dataFine, 'dd/MM/yyyy')}">
+        Milano, 01/01/2025 - 08/01/2025
+    </h2>
+
+    <span th:text="${festival.descrizione}"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+        consequat mi quis pretium semper.</span>
+
+    <h3> Tutti i film in concorso: </h3>
+    <div>
+        <ul>
+            <li th:each="film : ${filmList}">
+                <a th:href="@{'/film/' + ${film.id}}" th:text="${film.titolo}">Inception</a>
+            </li>
+        </ul>
+    </div>
+
+    <h3>Programma delle proiezioni: </h3>
     <table>
         <tr>
             <td>Data</td>
@@ -33,6 +53,7 @@
             <td th:text="${proiezione.sala.indirizzo}">Via Subaru 1, Milano</td>
         </tr>
     </table>
+
 </body>
 
 </html>

@@ -24,13 +24,34 @@
     <span th:text="${festival.descrizione}"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
         consequat mi quis pretium semper.</span>
 
-    <h3>
-        <a th:href="@{'/festival/' + ${festival.id} + '/film'}">Tutti i film in concorso</a>
-    </h3>
+    <h3> Tutti i film in concorso: </h3>
+    <div>
+        <ul>
+            <li th:each="film : ${filmList}">
+                <a th:href="@{'/film/' + ${film.id}}" th:text="${film.titolo}">Inception</a>
+            </li>
+        </ul>
+    </div>
 
-    <h3>
-        <a th:href="@{'/festival/' + ${festival.id} + '/proiezioni'}">Programma delle proiezioni</a>
-    </h3>
+    <h3>Programma delle proiezioni: </h3>
+    <table>
+        <tr>
+            <td>Data</td>
+            <td>Ora</td>
+            <td>Film</td>
+            <td>Sala</td>
+            <td>Indirizzo</td>
+        </tr>
+        <tr th:each="proiezione : ${proiezioniList}">
+            <td th:text="${#temporals.format(proiezione.data, 'dd/MM/yyyy')}">20/02/2025</td>
+            <td th:text="${proiezione.ora}">15:18</td>
+            <td>
+                <a th:href="@{'/film/' + ${proiezione.film.id}}" th:text="${proiezione.film.titolo}">Inception</a>
+            </td>
+            <td th:text="${proiezione.sala.nome}">Cinema Cadrega</td>
+            <td th:text="${proiezione.sala.indirizzo}">Via Subaru 1, Milano</td>
+        </tr>
+    </table>
 
 </body>
 
