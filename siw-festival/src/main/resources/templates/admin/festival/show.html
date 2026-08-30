@@ -25,16 +25,22 @@
     <span th:text="${festival.descrizione}"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
         consequat mi quis pretium semper.</span>
 
-    <h3> Tutti i film in concorso: </h3>
+    <h2> Tutti i film in concorso: </h2>
     <div>
         <ul>
             <li th:each="film : ${filmList}">
                 <a th:href="@{'/film/' + ${film.id}}" th:text="${film.titolo}">Inception</a>
+                <form th:action="@{'/admin/festival/' + ${festival.id} + '/film/' + ${film.id} + '/delete'}" method="POST"
+                    style="display:inline;"
+                    onclick="return confirm('Sei sicuro di voler rimuovere questo film?');">
+                    <button type="submit">Rimuovi</button>
+                </form>
             </li>
         </ul>
     </div>
+    <h3><a th:href="@{'/admin/festival/' + ${festival.id} + '/addFilm'}">Aggiungi un film</a></h3>
 
-    <h3>Programma delle proiezioni: </h3>
+    <h2>Programma delle proiezioni: </h2>
     <table>
         <tr>
             <td>Data</td>

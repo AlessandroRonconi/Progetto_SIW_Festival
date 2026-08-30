@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title th:text="'Aggiungi film a ' + ${festival.nome}">Aggiungi film</title>
+    <link rel="stylesheet" th:href="@{/css/stile.css}">
+</head>
+
+<body>
+    <h3><a th:href="@{'/admin/festival/' + ${festival.id}}">Torna al festival</a></h3>
+    <h1 th:text="'Aggiungi un film a ' + ${festival.nome}">Aggiungi film</h1>
+
+    <form th:action="@{'/admin/festival/' + ${festival.id} + '/addFilm'}" method="POST">
+        <select name="filmId" required>
+            <option value="" disabled selected>Seleziona un film</option>
+            <option th:each="film : ${filmDisponibili}" th:value="${film.id}" th:text="${film.titolo}">Titolo film
+            </option>
+        </select>
+        <button type="submit">Aggiungi</button>
+    </form>
+</body>
+
+</html>

@@ -7,19 +7,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.siw_festival.exception.DuplicateElementException;
 import it.uniroma3.siw.siw_festival.model.Festival;
 import it.uniroma3.siw.siw_festival.service.FestivalService;
+import it.uniroma3.siw.siw_festival.service.FilmService;
 import jakarta.validation.Valid;
 
 @Controller
 public class FestivalController {
 
+    private final FilmService filmService;
     private final FestivalService festivalService;
 
-    public FestivalController(FestivalService festivalService) {
+    public FestivalController(FestivalService festivalService, FilmService filmService) {
         this.festivalService = festivalService;
+        this.filmService = filmService;
     }
 
     @GetMapping("/festival")
@@ -97,4 +101,28 @@ public class FestivalController {
         }
         return "redirect:/festival/" + id;
     }
+
+    @GetMapping("/admin/festival/{id}/addFilm")
+    public String getFestivalAddFilmForm(@PathVariable Long id, Model model) {
+        Festival f = this.festivalService.findById(id);
+        model.addAttribute("festival", f);
+        model.addAttribute("filmList", f.getFilm()); // film già iscritti
+        model.addAttribute("filmDisponibili", this.filmService.findAll()); // tutti i film per la select
+        return "admin/festival/addFilmForm";
+    }
+
+    @PostMapping("/admin/festival/{id}/addFilm")
+    public String postFestivalAddFilmForm(@PathVariable Long id,
+            @RequestParam("filmId") Long filmId) {
+        this.festivalService.addFilmToFestival(id, filmId);
+        return "redirect:/admin/festival/" + id;
+    }
+
+    @PostMapping("/admin/festival/{festivalId}/film/{filmId}/delete")
+    public String postRemoveFilmFromFestival(@PathVariable Long festivalId,
+            @PathVariable Long filmId) {
+        this.festivalService.removeFilmFromFestival(festivalId, filmId);
+        return "redirect:/admin/festival/" + festivalId;
+    }
+
 }

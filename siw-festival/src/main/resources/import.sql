@@ -14,20 +14,34 @@ insert into credentials(id, username, password, role, user_id) values(nextval('c
 -- FESTIVAL
 insert into festival(id, nome, anno, citta, data_inizio, data_fine, descrizione) values(nextval('festival_seq'), 'Ottavia Sci-Fi Festival', 2026, 'Roma', '2026-08-01', '2026-08-08', 'Festival di film di fantascienza.');
 insert into festival(id, nome, anno, citta, data_inizio, data_fine, descrizione) values(nextval('festival_seq'), 'Ottavia Sci-Fi Festival', 2025, 'Roma', '2025-07-06', '2025-07-13', 'Festival di film di fantascienza.');
-insert into festival(id, nome, anno, citta, data_inizio, data_fine, descrizione) values(nextval('festival_seq'), 'SBTCinema', 2025, 'San Benedetto del Tronto', '2025-06-05', '2025-06-12', 'Cinema all''aperto con una selezione di grandi classici.');
+insert into festival(id, nome, anno, citta, data_inizio, data_fine, descrizione) values(nextval('festival_seq'), 'SBTCinema', 2025, 'San Benedetto del Tronto', '2025-06-05', '2025-06-12', 'Cinema all''aperto con vari blockbuster.');
 
 -- REGISTA
 insert into regista(id, nome, cognome, data_nascita, nazionalita) values(nextval('regista_seq'), 'Christopher', 'Nolan', '1970-07-30', 'UK');
 insert into regista(id, nome, cognome, data_nascita, nazionalita) values(nextval('regista_seq'), 'Jon', 'Favreau', '1966-10-19', 'USA');
+insert into regista(id, nome, cognome, data_nascita, nazionalita) values(nextval('regista_seq'), 'Denis', 'Villeneuve', '1967-10-03', 'Canada');
+insert into regista(id, nome, cognome, data_nascita, nazionalita) values(nextval('regista_seq'), 'Greta', 'Gerwig', '1983-08-04', 'USA');
+insert into regista(id, nome, cognome, data_nascita, nazionalita) values(nextval('regista_seq'), 'Bong', 'Joon-ho', '1969-09-14', 'Corea del Sud');
 
 -- FILM (ManyToOne verso Regista -> colonna regista_id)
 insert into film(id, titolo, anno, durata, genere, paese_produzione, regista_id) values(nextval('film_seq'), 'Inception', 2010, 148, 'Fantascienza', 'UK/USA', 1);
+insert into film(id, titolo, anno, durata, genere, paese_produzione, regista_id) values(nextval('film_seq'), 'Dune', 2021, 155, 'Fantascienza', 'USA/Canada', 101);
+insert into film(id, titolo, anno, durata, genere, paese_produzione, regista_id) values(nextval('film_seq'), 'Barbie', 2023, 114, 'Commedia', 'USA', 151);
+insert into film(id, titolo, anno, durata, genere, paese_produzione, regista_id) values(nextval('film_seq'), 'Parasite', 2019, 132, 'Thriller', 'Corea del Sud', 201);
+insert into film(id, titolo, anno, durata, genere, paese_produzione, regista_id) values(nextval('film_seq'), 'Interstellar', 2014, 169, 'Fantascienza', 'UK/USA', 1);
 
 -- RELAZIONE ManyToMany Festival <-> Film (tabella di join festival_film)
 insert into festival_film(festival_id, film_id) values(1, 1);
+insert into festival_film(festival_id, film_id) values(1, 51); -- Dune nell'Ottavia Sci-Fi Festival 2026
+insert into festival_film(festival_id, film_id) values(1, 201); -- Interstellar nell'Ottavia Sci-Fi Festival 2026
+insert into festival_film(festival_id, film_id) values(51, 51); -- Dune nell'Ottavia Sci-Fi Festival 2025
+insert into festival_film(festival_id, film_id) values(101, 101); -- Barbie a SBTCinema
+insert into festival_film(festival_id, film_id) values(101, 151); -- Parasite a SBTCinema
 
 -- SALA
 insert into sala(id, nome, indirizzo, capienza) values(nextval('sala_seq'), 'Sala Nolan', 'Via Roma 1, Roma', 200);
+insert into sala(id, nome, indirizzo, capienza) values(nextval('sala_seq'), 'Sala Truffaut', 'Via Milano 5, San Benedetto del Tronto', 150);
+insert into sala(id, nome, indirizzo, capienza) values(nextval('sala_seq'), 'Sala Kubrick', 'Via Torino 10, Roma', 300);
 
 -- PROIEZIONE (ManyToOne verso Festival, Film, Sala)
 insert into proiezione(id, data, ora, festival_id, film_id, sala_id) values(nextval('proiezione_seq'), '2026-08-02', '21:00:00', 1, 1, 1);
