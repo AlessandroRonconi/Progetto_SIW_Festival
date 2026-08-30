@@ -3,7 +3,6 @@ package it.uniroma3.siw.siw_festival.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,7 +45,8 @@ public class FestivalService {
     public void save(Festival festivalForm) {
         if (this.festivalRepository.existsByNomeAndAnno(festivalForm.getNome(), festivalForm.getAnno()))
             throw new DuplicateElementException(
-                    "Il festival " + festivalForm.getNome() + " " + festivalForm.getAnno() + " è già presente nel sistema.");
+                    "Il festival " + festivalForm.getNome() + " " + festivalForm.getAnno()
+                            + " è già presente nel sistema.");
         this.festivalRepository.save(festivalForm);
     }
 
@@ -64,24 +64,22 @@ public class FestivalService {
     }
 
     public void addFilmToFestival(Long festivalId, Long filmId) {
-    Festival festival = this.festivalRepository.findById(festivalId)
-            .orElseThrow(() -> new NoSuchElementException("Festival non trovato"));
-    Film film = this.filmRepository.findById(filmId)
-            .orElseThrow(() -> new NoSuchElementException("Film non trovato"));
+        Festival festival = this.findById(festivalId);
+        Film film = this.filmRepository.findById(filmId)
+                .orElseThrow(() -> new ResourceNotFoundException("Film non trovato"));
 
-    if (!festival.getFilm().contains(film)) {
-        festival.getFilm().add(film);
+        if (!festival.getFilm().contains(film)) {
+            festival.getFilm().add(film);
+            this.festivalRepository.save(festival);
+        }
+    }
+
+    public void removeFilmFromFestival(Long festivalId, Long filmId) {
+        Festival festival = this.findById(festivalId);
+        Film film = this.filmRepository.findById(filmId)
+                .orElseThrow(() -> new ResourceNotFoundException("Film non trovato"));
+
+        festival.getFilm().remove(film);
         this.festivalRepository.save(festival);
     }
-}
-
-public void removeFilmFromFestival(Long festivalId, Long filmId) {
-    Festival festival = this.festivalRepository.findById(festivalId)
-            .orElseThrow(() -> new NoSuchElementException("Festival non trovato"));
-    Film film = this.filmRepository.findById(filmId)
-            .orElseThrow(() -> new NoSuchElementException("Film non trovato"));
-
-    festival.getFilm().remove(film);
-    this.festivalRepository.save(festival);
-}
 }
