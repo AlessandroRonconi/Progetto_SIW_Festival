@@ -2,6 +2,7 @@ package it.uniroma3.siw.siw_festival.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
@@ -63,5 +64,13 @@ public class ProiezioneService {
     public void deleteProiezione(Long id) {
         Proiezione p = this.findById(id);
         this.proiezioneRepository.delete(p);
+    }
+
+    public List<Proiezione> findByFilmId(Long id) {
+        return this.proiezioneRepository.findByFilmIdOrderByDataAscOraAsc(id);
+    }
+
+    public List<Proiezione> findByFestivalId(Long id) {
+        return this.proiezioneRepository.findByFestivalIdOrderByDataAscOraAsc(id);
     }
 }

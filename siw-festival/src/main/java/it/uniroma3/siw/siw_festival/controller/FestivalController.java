@@ -45,7 +45,7 @@ public class FestivalController {
         Festival f = this.festivalService.findById(id);
         model.addAttribute("festival", f);
         model.addAttribute("filmList", f.getFilm());
-        model.addAttribute("proiezioniList", f.getProiezioni());
+        model.addAttribute("proiezioniList", this.proiezioneService.findByFestivalId(id));
         return "festival/show";
     }
 
@@ -60,7 +60,7 @@ public class FestivalController {
         Festival f = this.festivalService.findById(id);
         model.addAttribute("festival", f);
         model.addAttribute("filmList", f.getFilm());
-        model.addAttribute("proiezioniList", f.getProiezioni());
+        model.addAttribute("proiezioniList", this.proiezioneService.findByFestivalId(id));
         return "admin/festival/show";
     }
 

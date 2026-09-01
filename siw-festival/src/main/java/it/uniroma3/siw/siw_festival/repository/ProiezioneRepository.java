@@ -2,6 +2,7 @@ package it.uniroma3.siw.siw_festival.repository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -15,5 +16,9 @@ public interface ProiezioneRepository extends CrudRepository<Proiezione, Long> {
     boolean existsBySalaAndDataAndOra(Sala sala, LocalDate data, LocalTime ora);
 
     void deleteByFestivalAndFilm(Festival festival, Film film);
+
+    List<Proiezione> findByFilmIdOrderByDataAscOraAsc(Long filmId);
+
+    List<Proiezione> findByFestivalIdOrderByDataAscOraAsc(Long festivalId);
 
 }

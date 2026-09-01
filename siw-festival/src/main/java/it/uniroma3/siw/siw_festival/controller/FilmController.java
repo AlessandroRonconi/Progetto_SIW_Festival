@@ -16,6 +16,7 @@ import it.uniroma3.siw.siw_festival.exception.DuplicateElementException;
 import it.uniroma3.siw.siw_festival.model.Film;
 import it.uniroma3.siw.siw_festival.model.Recensione;
 import it.uniroma3.siw.siw_festival.service.FilmService;
+import it.uniroma3.siw.siw_festival.service.ProiezioneService;
 import it.uniroma3.siw.siw_festival.service.RecensioneService;
 import it.uniroma3.siw.siw_festival.service.RegistaService;
 import jakarta.validation.Valid;
@@ -23,14 +24,17 @@ import jakarta.validation.Valid;
 @Controller
 public class FilmController {
 
+    private final ProiezioneService proiezioneService;
     private final RegistaService registaService;
     private final RecensioneService recensioneService;
     private final FilmService filmService;
 
-    public FilmController(FilmService filmService, RecensioneService recensioneService, RegistaService registaService) {
+    public FilmController(FilmService filmService, RecensioneService recensioneService, RegistaService registaService,
+            ProiezioneService proiezioneService) {
         this.filmService = filmService;
         this.recensioneService = recensioneService;
         this.registaService = registaService;
+        this.proiezioneService = proiezioneService;
     }
 
     @GetMapping("/film/{id}")
@@ -39,7 +43,7 @@ public class FilmController {
         model.addAttribute("film", f);
         model.addAttribute("regista", f.getRegista());
         model.addAttribute("festivalList", f.getFestival());
-        model.addAttribute("proiezioniList", f.getProiezioni());
+        model.addAttribute("proiezioniList", this.proiezioneService.findByFilmId(id));
         model.addAttribute("recensioniList", f.getRecensioni());
 
         if (userDetails != null) {

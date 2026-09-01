@@ -72,7 +72,9 @@ function FilmSearch() {
                     <tbody>
                         {film.map((f) => (
                             <tr key={f.id}>
-                                <td>{f.titolo}</td>
+                                <td>
+                                    <a href={`/film/${f.id}`}>{f.titolo}</a>
+                                </td>
                                 <td>{f.anno}</td>
                                 <td>{f.genere}</td>
                                 <td>{f.registaNome} {f.registaCognome}</td>
