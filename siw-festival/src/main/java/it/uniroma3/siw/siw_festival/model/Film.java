@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,11 +38,11 @@ public class Film {
 
     @ManyToMany(mappedBy = "film")
     private List<Festival> festival;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Regista regista;
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "film", fetch = FetchType.LAZY)
     private List<Proiezione> proiezioni;
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "film", fetch = FetchType.LAZY)
     private List<Recensione> recensioni;
 
     public Long getId() {

@@ -67,10 +67,10 @@ public class ProiezioneService {
     }
 
     public List<Proiezione> findByFilmId(Long id) {
-        return this.proiezioneRepository.findByFilmIdOrderByDataAscOraAsc(id);
+        return this.proiezioneRepository.findByFilmIdWithSalaAndFestival(id);
     }
 
     public List<Proiezione> findByFestivalId(Long id) {
-        return this.proiezioneRepository.findByFestivalIdOrderByDataAscOraAsc(id);
+        return this.proiezioneRepository.findByFestivalIdWithFilmAndSala(id);
     }
 }

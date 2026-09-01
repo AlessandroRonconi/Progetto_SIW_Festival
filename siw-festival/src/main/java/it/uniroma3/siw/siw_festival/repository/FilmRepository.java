@@ -12,7 +12,7 @@ public interface FilmRepository extends CrudRepository<Film, Long> {
 
         public boolean existsByTitoloAndAnno(String titolo, Long anno);
 
-        @Query("SELECT f FROM Film f JOIN f.regista r WHERE " +
+        @Query("SELECT f FROM Film f JOIN FETCH f.regista r WHERE " +
                         "(:titolo IS NULL OR LOWER(f.titolo) LIKE LOWER(CAST(:titolo AS string))) AND " +
                         "(:genere IS NULL OR LOWER(f.genere) = LOWER(CAST(:genere AS string))) AND " +
                         "(:cognomeRegista IS NULL OR LOWER(r.cognome) LIKE LOWER(CAST(:cognomeRegista AS string)))")

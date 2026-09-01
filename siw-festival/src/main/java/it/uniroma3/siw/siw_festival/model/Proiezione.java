@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,12 +32,12 @@ public class Proiezione {
     @DateTimeFormat(pattern = "HH:mm")
     private LocalTime ora;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Festival festival;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @NotNull(message = "Seleziona un film")
     private Film film;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @NotNull(message = "Seleziona una sala")
     private Sala sala;
 

@@ -16,7 +16,7 @@
     <div>
         <ul>
             <li th:each="sala : ${saleList}">
-                <a th:href="@{'/sale/' + ${sala.id}}" th:text="${sala.nome} + ' (' + ${sala.indirizzo} + ' )'">Sala placeholder (Via Calabria 67, Lamezia Terme)</a>
+                <a th:href="@{'/admin/sale/' + ${sala.id}}" th:text="${sala.nome} + ' (' + ${sala.indirizzo} + ' )'">Sala placeholder (Via Calabria 67, Lamezia Terme)</a>
                 <a th:href="@{'/admin/sale/' + ${sala.id} + '/edit'}">
                     <button type="submit">Modifica</button>
                 </a>

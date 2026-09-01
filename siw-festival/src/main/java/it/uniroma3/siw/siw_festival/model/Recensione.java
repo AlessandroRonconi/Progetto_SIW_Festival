@@ -3,6 +3,7 @@ package it.uniroma3.siw.siw_festival.model;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,9 +24,9 @@ public class Recensione {
     private Long voto;
     private LocalDate data;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Film film;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User utente;
 
     public Long getId() {
