@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.siw.siw_festival.dto.FilmDTO;
 import it.uniroma3.siw.siw_festival.exception.DuplicateElementException;
 import it.uniroma3.siw.siw_festival.exception.ResourceNotFoundException;
 import it.uniroma3.siw.siw_festival.model.Film;
@@ -50,6 +51,24 @@ public class FilmService {
         f.setRegista(regista);
         f.setPaeseProduzione(paeseProduzione);
         return this.filmRepository.save(f);
+    }
+
+    @Transactional(readOnly = true)
+    public List<FilmDTO> search(String titolo, String genere, String cognomeRegista) {
+        return this.filmRepository.search(
+                (titolo != null && !titolo.isBlank()) ? titolo : null,
+                (genere != null && !genere.isBlank()) ? genere : null,
+                (cognomeRegista != null && !cognomeRegista.isBlank()) ? cognomeRegista : null).stream()
+                .map(f -> new FilmDTO(
+                        f.getId(),
+                        f.getTitolo(),
+                        f.getAnno(),
+                        f.getGenere(),
+                        f.getDurata(),
+                        f.getPaeseProduzione(),
+                        f.getRegista() != null ? f.getRegista().getNome() : null,
+                        f.getRegista() != null ? f.getRegista().getCognome() : null))
+                .toList();
     }
 
 }
