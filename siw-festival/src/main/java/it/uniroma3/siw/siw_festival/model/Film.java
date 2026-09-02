@@ -23,7 +23,7 @@ public class Film {
     @NotBlank
     @Column(nullable = false)
     private String titolo;
-    @NotBlank
+    @NotNull
     @Column(nullable = false)
     private Long anno;
     @NotNull
