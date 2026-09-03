@@ -14,6 +14,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -23,20 +25,22 @@ public class Festival {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Il nome è obbligatorio")
     @Column(nullable = false)
     private String nome;
-    @NotNull
+    @NotNull(message = "L'anno è obbligatorio")
+    @Min(value = 1895, message = "L'anno non può essere antecedente alla nascita del cinema (1895)")
+    @Max(value = 2100, message = "Anno non valido")
     @Column(nullable = false)
     private Long anno;
-    @NotBlank
+    @NotBlank(message = "La città è obbligatoria")
     @Column(nullable = false)
     private String citta;
-    @NotNull
+    @NotNull(message = "La data di inizio è obbligatoria")
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataInizio;
-    @NotNull
+    @NotNull(message = "La data di fine è obbligatoria")
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataFine;

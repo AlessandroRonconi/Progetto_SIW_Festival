@@ -16,6 +16,9 @@
     <h1>Modifica Festival</h1>
 
     <form th:action="@{/admin/festival/{id}/edit(id=${festival.id})}" method="POST" th:object="${festival}">
+
+        <p th:if="${errore}" th:text="${errore}" style="color:red;">Errore</p>
+
         <div>
             Nome: <span><input type="text" th:field="*{nome}" /></span>
             <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="error-message"></span>
@@ -25,8 +28,8 @@
             <span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}" class="error-message"></span>
         </div>
         <div>
-            Città: <span><input type="text" th:field="*{Citta}" /></span>
-            <span th:if="${#fields.hasErrors('Citta')}" th:errors="*{citta}" class="error-message"></span>
+            Città: <span><input type="text" th:field="*{citta}" /></span>
+            <span th:if="${#fields.hasErrors('citta')}" th:errors="*{citta}" class="error-message"></span>
         </div>
         <div>
             Data inizio: <span><input type="date" th:field="*{dataInizio}" /></span>

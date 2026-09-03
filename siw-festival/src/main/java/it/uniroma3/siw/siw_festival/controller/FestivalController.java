@@ -16,22 +16,25 @@ import it.uniroma3.siw.siw_festival.service.FestivalService;
 import it.uniroma3.siw.siw_festival.service.FilmService;
 import it.uniroma3.siw.siw_festival.service.ProiezioneService;
 import it.uniroma3.siw.siw_festival.service.SalaService;
+import it.uniroma3.siw.siw_festival.validator.FestivalValidator;
 import jakarta.validation.Valid;
 
 @Controller
 public class FestivalController {
 
+    private final FestivalValidator festivalValidator;
     private final ProiezioneService proiezioneService;
     private final SalaService salaService;
     private final FilmService filmService;
     private final FestivalService festivalService;
 
     public FestivalController(FestivalService festivalService, FilmService filmService, SalaService salaService,
-            ProiezioneService proiezioneService) {
+            ProiezioneService proiezioneService, FestivalValidator festivalValidator) {
         this.festivalService = festivalService;
         this.filmService = filmService;
         this.salaService = salaService;
         this.proiezioneService = proiezioneService;
+        this.festivalValidator = festivalValidator;
     }
 
     @GetMapping("/festival")
@@ -74,6 +77,8 @@ public class FestivalController {
     public String postFestivalForm(@Valid @ModelAttribute Festival festival,
             BindingResult bindingResult, Model model) {
 
+        this.festivalValidator.validate(festival, bindingResult);
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("festival", festival);
             return "admin/festival/form";
@@ -82,6 +87,7 @@ public class FestivalController {
             this.festivalService.save(festival);
             return "redirect:/admin/festival";
         } catch (DuplicateElementException e) {
+            model.addAttribute("errore", "Un festival con questo nome ed anno esiste già.");
             model.addAttribute("festival", festival);
             return "admin/festival/form";
         }
@@ -96,6 +102,9 @@ public class FestivalController {
     @PostMapping("/admin/festival/{id}/edit")
     public String postFestivalEditForm(@PathVariable Long id, @Valid @ModelAttribute Festival festivalForm,
             BindingResult bindingResult, Model model) {
+
+        this.festivalValidator.validate(festivalForm, bindingResult);
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("festival", festivalForm);
             return "admin/festival/editForm";
@@ -104,8 +113,9 @@ public class FestivalController {
             this.festivalService.update(id, festivalForm.getNome(), festivalForm.getAnno(), festivalForm.getCitta(),
                     festivalForm.getDataInizio(), festivalForm.getDataFine(), festivalForm.getDescrizione());
         } catch (DuplicateElementException e) {
+            model.addAttribute("errore", "Un festival con questo nome ed anno esiste già.");
             model.addAttribute("festival", festivalForm);
-            return "admin/festival/form";
+            return "admin/festival/editForm";
         }
         return "redirect:/festival/" + id;
     }
