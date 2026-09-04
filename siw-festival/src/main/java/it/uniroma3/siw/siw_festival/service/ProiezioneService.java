@@ -50,15 +50,16 @@ public class ProiezioneService {
 
     @Transactional
     public void updateProiezione(Long id, LocalDate data, LocalTime ora, Film film, Sala sala) {
-        Proiezione p = this.proiezioneRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Proiezione non trovata"));
-
+        if (this.proiezioneRepository.existsBySalaAndDataAndOra(sala, data, ora)) {
+            throw new DuplicateElementException("Sala già occupata in quell'orario");
+        }
+        Proiezione p = findById(id);
         p.setData(data);
         p.setOra(ora);
         p.setFilm(film);
         p.setSala(sala);
 
-        this.proiezioneRepository.save(p); // Salva le modifiche sul database
+        this.proiezioneRepository.save(p);
     }
 
     public void deleteProiezione(Long id) {

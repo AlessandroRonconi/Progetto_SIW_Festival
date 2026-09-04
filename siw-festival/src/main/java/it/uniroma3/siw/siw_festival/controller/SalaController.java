@@ -53,6 +53,7 @@ public class SalaController {
             return "redirect:/admin/sale";
         } catch (DuplicateElementException e) {
             model.addAttribute("sala", sala);
+            model.addAttribute("errore", "Una sala con questo nome e questo indirizzo esiste già");
             return "admin/sale/form";
         }
     }
@@ -75,6 +76,7 @@ public class SalaController {
 
         } catch (DuplicateElementException e) {
             model.addAttribute("sala", this.salaService.findById(id));
+            model.addAttribute("errore", "Una sala con questo nome e questo indirizzo esiste già");
             return "admin/sale/editForm";
         }
         return "redirect:/admin/sale/" + id;

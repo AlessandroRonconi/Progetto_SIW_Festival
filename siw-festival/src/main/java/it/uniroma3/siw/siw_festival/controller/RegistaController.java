@@ -55,6 +55,7 @@ public class RegistaController {
             return "redirect:/admin/registi";
         } catch (DuplicateElementException e) {
             model.addAttribute("regista", regista);
+            model.addAttribute("errore", "Un regista con questo nome e questa data di nascita esiste già");
             return "admin/registi/form";
         }
     }
@@ -79,6 +80,7 @@ public class RegistaController {
 
         } catch (DuplicateElementException e) {
             model.addAttribute("regista", this.registaService.findById(id));
+            model.addAttribute("errore", "Un regista con questo nome e questa data di nascita esiste già");
             return "admin/registi/editForm";
         }
         return "redirect:/registi/" + id;

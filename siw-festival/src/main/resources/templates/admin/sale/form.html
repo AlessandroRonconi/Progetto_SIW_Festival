@@ -16,6 +16,9 @@
     <h1>Nuova Sala</h1>
 
     <form th:action="@{/admin/sale/new}" method="POST" th:object="${sala}">
+
+        <p th:if="${errore}" th:text="${errore}" style="color:red;">Errore</p>
+
         <div>
             Nome: <span><input type="text" th:field="*{nome}" /></span>
             <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="error-message"></span>

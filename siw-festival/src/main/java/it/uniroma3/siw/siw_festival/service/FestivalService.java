@@ -56,6 +56,9 @@ public class FestivalService {
 
     public Festival update(Long id, String nome, Long anno, String citta, LocalDate dataInizio, LocalDate dataFine,
             String descrizione) {
+        if (this.festivalRepository.existsByNomeAndAnno(nome, anno))
+            throw new DuplicateElementException(
+                    "Il festival " + nome + " " + anno + " è già presente nel sistema.");
         Festival f = this.findById(id);
         f.setNome(nome);
         f.setAnno(anno);

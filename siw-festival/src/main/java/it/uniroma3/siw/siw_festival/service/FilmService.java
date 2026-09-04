@@ -43,6 +43,9 @@ public class FilmService {
 
     public Film update(Long id, String titolo, Long anno, Long durata, String genere, Regista regista,
             String paeseProduzione) {
+        if (this.filmRepository.existsByTitoloAndAnno(titolo, anno))
+            throw new DuplicateElementException(
+                    "Il film " + titolo + " (" + anno + ") è già presente nel sistema.");
         Film f = this.findById(id);
         f.setTitolo(titolo);
         f.setAnno(anno);

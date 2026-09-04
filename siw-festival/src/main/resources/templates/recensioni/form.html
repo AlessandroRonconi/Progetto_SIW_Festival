@@ -17,13 +17,13 @@
     <h1>Aggiungi una recensione</h1>
     <form th:action="@{/film/{id}/recensioni/new(id=${film.id})}" method="POST" th:object="${recensione}">
 
+        <p th:if="${errore}" th:text="${errore}" style="color:red;">Errore</p>
+
         <div>
             <label for="voto">Voto (da 1 a 10):</label>
             <select id="voto" th:field="*{voto}">
                 <option value="">-- Seleziona un voto --</option>
-                <option th:each="i : ${#numbers.sequence(1, 10)}" 
-                        th:value="${i}" 
-                        th:text="${i}">
+                <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">
                 </option>
             </select>
             <span th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}">Errore Voto</span>

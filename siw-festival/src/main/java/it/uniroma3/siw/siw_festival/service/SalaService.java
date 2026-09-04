@@ -40,6 +40,9 @@ public class SalaService {
     }
 
     public Sala update(Long id, String nome, String indirizzo, Long capienza) {
+        if (this.salaRepository.existsByNomeAndIndirizzo(nome, indirizzo))
+            throw new DuplicateElementException(
+                    "La sala " + nome + " (" + indirizzo + ") è già presente nel sistema.");
         Sala s = this.findById(id);
         s.setNome(nome);
         s.setIndirizzo(indirizzo);

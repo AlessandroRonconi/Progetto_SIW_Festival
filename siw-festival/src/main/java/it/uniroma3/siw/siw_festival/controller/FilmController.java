@@ -67,8 +67,15 @@ public class FilmController {
             model.addAttribute("film", this.filmService.findById(id));
             return "recensioni/form";
         }
-        this.recensioneService.creaRecensione(id, authentication.getName(), recensioneForm.getTesto(),
-                recensioneForm.getVoto());
+        try {
+            this.recensioneService.creaRecensione(id, authentication.getName(), recensioneForm.getTesto(),
+                    recensioneForm.getVoto());
+        } catch (DuplicateElementException e) {
+            model.addAttribute("film", this.filmService.findById(id));
+
+            model.addAttribute("error", "Hai già scritto una recensione per questo film");
+            return "recensioni/form";
+        }
 
         return "redirect:/film/" + id;
     }

@@ -179,7 +179,7 @@ public class FestivalController {
                     proiezione.getSala());
             return "redirect:/admin/festival/" + id;
         } catch (DuplicateElementException e) {
-            Festival f = this.festivalService.findById(id); // fetch nuovo, sessione valida
+            Festival f = this.festivalService.findById(id);
             model.addAttribute("festival", f);
             model.addAttribute("filmList", f.getFilm());
             model.addAttribute("salaList", this.salaService.findAll());

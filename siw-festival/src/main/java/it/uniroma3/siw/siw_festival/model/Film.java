@@ -9,6 +9,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -26,8 +27,8 @@ public class Film {
     @Column(nullable = false)
     private String titolo;
     @NotNull
-    @Min(value = 1895, message = "L'anno non può essere antecedente alla nascita del cinema (1895)")
-    @Max(value = 2100, message = "Anno non valido")
+    @Min(value = 1895)
+    @Max(value = 2100)
     @Column(nullable = false)
     private Long anno;
     @NotNull
@@ -43,6 +44,8 @@ public class Film {
     @ManyToMany(mappedBy = "film")
     private List<Festival> festival;
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
+    @JoinColumn(nullable=false)
     private Regista regista;
     @OneToMany(mappedBy = "film", fetch = FetchType.LAZY)
     private List<Proiezione> proiezioni;

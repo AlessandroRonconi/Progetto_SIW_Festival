@@ -18,6 +18,8 @@
     <form th:action="@{'/film/' + ${fId} + '/recensioni/' + ${recensione.id} + '/edit'}" method="POST"
         th:object="${recensione}">
 
+        <p th:if="${errore}" th:text="${errore}" style="color:red;">Errore</p>
+
         <div>
             <label for="voto">Voto (da 1 a 10):</label>
             <select id="voto" th:field="*{voto}">

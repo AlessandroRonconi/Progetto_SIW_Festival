@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.uniroma3.siw.siw_festival.exception.DuplicateElementException;
 import it.uniroma3.siw.siw_festival.exception.ResourceNotFoundException;
 import it.uniroma3.siw.siw_festival.model.Credentials;
 import it.uniroma3.siw.siw_festival.model.Film;
@@ -36,6 +37,9 @@ public class RecensioneService {
                 .orElseThrow(() -> new ResourceNotFoundException("Utente non trovato"));
         Recensione recensione = new Recensione();
         User user = credentials.getUser();
+
+        if (this.recensioneRepository.existsByFilmAndUtente(film, user))
+            throw new DuplicateElementException("Hai già scritto una recensione per questo film");
         recensione.setUtente(user);
         recensione.setTesto(testo);
         recensione.setFilm(film);

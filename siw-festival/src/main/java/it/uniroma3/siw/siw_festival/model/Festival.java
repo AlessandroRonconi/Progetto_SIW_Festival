@@ -29,8 +29,8 @@ public class Festival {
     @Column(nullable = false)
     private String nome;
     @NotNull
-    @Min(value = 1895, message = "L'anno non può essere antecedente alla nascita del cinema (1895)")
-    @Max(value = 2100, message = "Anno non valido")
+    @Min(value = 1895)
+    @Max(value = 2100)
     @Column(nullable = false)
     private Long anno;
     @NotBlank
