@@ -20,7 +20,7 @@ public class FilmRestController {
         this.filmService = filmService;
     }
 
-    @GetMapping("/film")
+    @GetMapping("/films")
     public List<FilmDTO> search(
             @RequestParam(required = false) String titolo,
             @RequestParam(required = false) String genere,

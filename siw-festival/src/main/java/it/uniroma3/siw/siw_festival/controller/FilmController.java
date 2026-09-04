@@ -72,8 +72,7 @@ public class FilmController {
                     recensioneForm.getVoto());
         } catch (DuplicateElementException e) {
             model.addAttribute("film", this.filmService.findById(id));
-
-            model.addAttribute("error", "Hai già scritto una recensione per questo film");
+            model.addAttribute("errore", "Hai già scritto una recensione per questo film");
             return "recensioni/form";
         }
 
