@@ -17,6 +17,8 @@
 
     <form th:action="@{/admin/film/{id}/edit(id=${film.id})}" method="POST" th:object="${film}">
 
+        <p th:if="${errore}" th:text="${errore}" style="color:red;">Errore</p>
+
         <div>
             Titolo: <span><input type="text" th:field="*{titolo}" /></span>
             <span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}" class="error-message"></span>

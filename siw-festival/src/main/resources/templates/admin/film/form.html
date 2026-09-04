@@ -17,6 +17,8 @@
 
     <form th:action="@{/admin/film/new}" method="POST" th:object="${film}">
 
+        <p th:if="${errore}" th:text="${errore}" style="color:red;">Errore</p>
+
         <div>
             Titolo: <span><input type="text" th:field="*{titolo}" /></span>
             <span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}" class="error-message"></span>
@@ -29,7 +31,7 @@
             Regista:
             <span>
                 <select th:field="*{regista}">
-                    <option value="" disabled selected>-- Seleziona un Regista --</option>
+                    <option value="" selected>-- Seleziona un Regista --</option>
                     <option th:each="r : ${registiList}" th:value="${r.id}" th:text="${r.nome + ' ' + r.cognome}">
                     </option>
                 </select>

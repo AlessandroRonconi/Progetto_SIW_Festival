@@ -25,22 +25,22 @@ public class Festival {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "Il nome è obbligatorio")
+    @NotBlank
     @Column(nullable = false)
     private String nome;
-    @NotNull(message = "L'anno è obbligatorio")
+    @NotNull
     @Min(value = 1895, message = "L'anno non può essere antecedente alla nascita del cinema (1895)")
     @Max(value = 2100, message = "Anno non valido")
     @Column(nullable = false)
     private Long anno;
-    @NotBlank(message = "La città è obbligatoria")
+    @NotBlank
     @Column(nullable = false)
     private String citta;
-    @NotNull(message = "La data di inizio è obbligatoria")
+    @NotNull
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataInizio;
-    @NotNull(message = "La data di fine è obbligatoria")
+    @NotNull
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataFine;

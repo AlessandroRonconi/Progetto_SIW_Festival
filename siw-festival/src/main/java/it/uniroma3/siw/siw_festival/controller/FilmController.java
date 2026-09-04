@@ -183,6 +183,7 @@ public class FilmController {
         } catch (DuplicateElementException e) {
             model.addAttribute("film", film);
             model.addAttribute("registiList", this.registaService.findAll());
+            model.addAttribute("errore", "Un film con questo titolo ed anno esiste già.");
             return "admin/film/form";
         }
     }
@@ -209,6 +210,7 @@ public class FilmController {
         } catch (DuplicateElementException e) {
             model.addAttribute("film", this.filmService.findById(id));
             model.addAttribute("registiList", this.registaService.findAll());
+            model.addAttribute("errore", "Un film con questo titolo ed anno esiste già.");
             return "admin/film/editForm";
         }
         return "redirect:/film/" + id;

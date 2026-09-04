@@ -12,6 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -24,6 +26,8 @@ public class Film {
     @Column(nullable = false)
     private String titolo;
     @NotNull
+    @Min(value = 1895, message = "L'anno non può essere antecedente alla nascita del cinema (1895)")
+    @Max(value = 2100, message = "Anno non valido")
     @Column(nullable = false)
     private Long anno;
     @NotNull
