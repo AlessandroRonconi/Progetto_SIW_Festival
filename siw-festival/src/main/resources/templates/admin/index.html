@@ -9,6 +9,10 @@
 </head>
 
 <body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+
     <h1>
         <a href="/admin/festival"><span th:text="'Lista dei Festival' + ' (' + ${numeroFestival} + ')'">Lista dei
                 Festival (1)</span></a>

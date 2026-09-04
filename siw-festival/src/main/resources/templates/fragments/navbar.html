@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+
+    <nav th:fragment="navbar" class="siw-navbar">
+        <div class="siw-navbar-container">
+            <a th:href="@{/}" class="siw-navbar-brand">SIW Festival</a>
+
+            <ul class="siw-navbar-links">
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/festival}">Festival</a></li>
+                <li><a th:href="@{/react/index.html}">Cerca film</a></li>
+
+                <!-- Link solo per ADMIN -->
+                <li sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/admin}">Gestione</a>
+                </li>
+
+                <!-- Utente NON autenticato -->
+                <li sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/login}">Login</a>
+                </li>
+                <li sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/register}">Registrati</a>
+                </li>
+
+                <!-- Utente autenticato -->
+                <li sec:authorize="isAuthenticated()" class="siw-navbar-user">
+                    <span sec:authentication="name"></span>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post" class="siw-navbar-logout-form">
+                        <button type="submit" class="siw-navbar-logout-btn">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+</body>
+
+</html>

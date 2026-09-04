@@ -8,6 +8,10 @@
 </head>
 
 <body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    
     <h3><a th:href="@{'/admin/festival/' + ${festival.id}}">Torna al festival</a></h3>
     <h1 th:text="'Aggiungi una proiezione a ' + ${festival.nome}">Nuova proiezione</h1>
 

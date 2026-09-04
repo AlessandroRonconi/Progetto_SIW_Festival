@@ -10,9 +10,9 @@
 </head>
 
 <body>
-    <h3>
-        <a href="/">Torna alla homepage</a>
-    </h3>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
 
     <h1 th:text="${festival.nome} + ' ' + ${festival.anno}">Lorem Ipsum Film Festival 2025</h1>
 

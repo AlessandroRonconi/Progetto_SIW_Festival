@@ -9,9 +9,9 @@
 </head>
 
 <body>
-    <h3>
-        <a th:href="@{'/film/' + ${fId}}">Annulla e torna al film</a>
-    </h3>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
 
     <h1>Modifica la tua recensione</h1>
 

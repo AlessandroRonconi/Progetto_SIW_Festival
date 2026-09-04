@@ -10,9 +10,9 @@
 </head>
 
 <body>
-    <h3>
-        <a href="/">Torna alla homepage</a>
-    </h3>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
 
     <h1>Aggiungi una recensione</h1>
     <form th:action="@{/film/{id}/recensioni/new(id=${film.id})}" method="POST" th:object="${recensione}">

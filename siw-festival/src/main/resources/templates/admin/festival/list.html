@@ -9,14 +9,15 @@
 </head>
 
 <body>
-    <h3>
-        <a href="/">Torna alla homepage</a>
-    </h3>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
 
     <div>
         <ul>
             <li th:each="festival : ${festivalList}">
-                <a th:href="@{'/admin/festival/' + ${festival.id}}" th:text="${festival.nome} + ' ' + ${festival.anno}">Festival placeholder 2005</a>
+                <a th:href="@{'/admin/festival/' + ${festival.id}}"
+                    th:text="${festival.nome} + ' ' + ${festival.anno}">Festival placeholder 2005</a>
                 <a th:href="@{'/admin/festival/' + ${festival.id} + '/edit'}">
                     <button type="submit">Modifica</button>
                 </a>

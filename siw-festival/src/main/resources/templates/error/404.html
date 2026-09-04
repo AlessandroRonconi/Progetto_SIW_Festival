@@ -9,10 +9,11 @@
 </head>
 
 <body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    
     <p th:text="${errorMessage}">404: Pagina non trovata.</p>
-    <h3>
-        <a href="/">Torna alla homepage</a>
-    </h3>
 </body>
 
 </html>

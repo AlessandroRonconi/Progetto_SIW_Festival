@@ -1,14 +1,29 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/react/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
-    <script type="module" crossorigin src="/react/assets/index.js"></script>
-    <link rel="stylesheet" crossorigin href="/react/assets/index.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/react/favicon.svg" />
+  <link rel="stylesheet" href="/react/stile.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>frontend</title>
+  <script type="module" crossorigin src="/react/assets/index.js"></script>
+  <link rel="stylesheet" crossorigin href="/react/assets/index.css">
+</head>
+
+<body>
+  <nav class="siw-navbar">
+    <div class="siw-navbar-container">
+      <a th:href="@{/}" class="siw-navbar-brand">SIW Festival</a>
+
+      <ul class="siw-navbar-links">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/festival}">Festival</a></li>
+        <li><a th:href="@{/react/index.html}">Cerca film</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div id="root"></div>
+</body>
+
 </html>

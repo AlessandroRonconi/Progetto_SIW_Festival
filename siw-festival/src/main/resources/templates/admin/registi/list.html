@@ -9,14 +9,15 @@
 </head>
 
 <body>
-    <h3>
-        <a href="/">Torna alla homepage</a>
-    </h3>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
 
     <div>
         <ul>
             <li th:each="regista : ${registiList}">
-                <a th:href="@{'/registi/' + ${regista.id}}" th:text="${regista.nome} + ' ' + ${regista.cognome}">Francesco Cilurzo</a>
+                <a th:href="@{'/registi/' + ${regista.id}}"
+                    th:text="${regista.nome} + ' ' + ${regista.cognome}">Francesco Cilurzo</a>
                 <a th:href="@{'/admin/registi/' + ${regista.id} + '/edit'}">
                     <button type="submit">Modifica</button>
                 </a>
