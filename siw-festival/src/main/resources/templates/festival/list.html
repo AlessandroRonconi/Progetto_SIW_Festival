@@ -1,24 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> SIWFestival - Lista dei Festival </title>
+    <title>SIWFestival - Lista dei Festival</title>
     <link rel="stylesheet" th:href="@{/css/stile.css}">
 </head>
 
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
 
-    <div>
-        <ul>
-            <li th:each="festival : ${festivalList}">
-                <a th:href="@{'/festival/' + ${festival.id}}" th:text="${festival.nome}">
-            </li>
-        </ul>
+        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna indietro</a>
+
+        <h1 class="page-title">Festival</h1>
+
+        <div class="grid grid-3">
+            <div class="card" th:each="festival : ${festivalList}">
+                <h3 class="card-title" th:text="${festival.nome}">Nome Festival</h3>
+                <p class="card-subtitle">
+                    <span th:text="${festival.citta}">Città</span> ·
+                    <span th:text="${festival.anno}">Anno</span>
+                </p>
+                <div class="card-footer">
+                    <a th:href="@{'/festival/' + ${festival.id}}" class="btn btn-primary btn-sm">Dettagli</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 

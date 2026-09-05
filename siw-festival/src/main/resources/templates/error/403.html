@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -11,9 +11,19 @@
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container text-center" style="max-width: 500px;">
+        <h1 class="page-title" style="font-size: 4rem; margin-bottom: 0;">403</h1>
+        <p class="text-muted mb-3">Non autorizzato</p>
 
-    <p th:text="${errorMessage}">403: Non autorizzato.</p>
+        <div class="alert alert-danger">
+            Non hai i permessi necessari per accedere a questa pagina.
+        </div>
+
+        <div class="flex flex-gap" style="justify-content: center;">
+            <a href="#" onclick="history.back(); return false;" class="btn btn-outline">← Torna indietro</a>
+            <a th:href="@{/}" class="btn btn-primary">Vai alla home</a>
+        </div>
+    </div>
 </body>
 
 </html>

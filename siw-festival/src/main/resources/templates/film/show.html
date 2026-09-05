@@ -11,69 +11,81 @@
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
 
-    <h1 th:text="${film.titolo} + ' (' + ${film.anno} + ')'">Tre uomini e una gamba (1997)</h1>
+        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna indietro</a>
 
-    <h3>
-        <a th:href="@{'/registi/' + ${regista.id}}"
-            th:text="'Regista: ' + ${regista.nome} + ' ' + ${regista.cognome}">Regista: Massimo Venier</a>
-    </h3>
+        <h1 th:text="${film.titolo} + ' (' + ${film.anno} + ')'">Tre uomini e una gamba (1997)</h1>
 
-    <h3 th:text="'Genere: ' + ${film.genere}">Genere: Commedia</h3>
+        <p class="text-muted mb-3">
+            <a th:href="@{'/registi/' + ${regista.id}}"
+                th:text="${regista.nome} + ' ' + ${regista.cognome}">Massimo Venier</a>
+            · <span class="badge badge-outline" th:text="${film.genere}">Commedia</span>
+            · <span th:text="${film.durata} + ' min'">98 min</span>
+        </p>
 
-    <h3 th:text="'Durata: ' + ${film.durata} + ' min'">Durata: 98 min</h3>
+        <h2 class="section-title">Festival</h2>
+        <div class="grid grid-3 mb-3">
+            <div class="card" th:each="festival : ${festivalList}">
+                <h3 class="card-title" th:text="${festival.nome}">AGG Film Festival</h3>
+                <div class="card-footer">
+                    <a th:href="@{'/festival/' + ${festival.id}}" class="btn btn-outline btn-sm">Dettagli</a>
+                </div>
+            </div>
+        </div>
 
-    <h2>Festival: </h2>
-    <ul>
-        <li th:each="festival : ${festivalList}">
-            <a th:href="@{'/festival/' + ${festival.id}}" th:text="${festival.nome}">AGG Film Festival</a>
-        </li>
-    </ul>
+        <h2 class="section-title">Proiezioni</h2>
+        <div class="table-wrapper mb-3">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Ora</th>
+                        <th>Festival</th>
+                        <th>Sala</th>
+                        <th>Indirizzo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="proiezione : ${proiezioniList}">
+                        <td th:text="${#temporals.format(proiezione.data, 'dd/MM/yyyy')}">20/02/2025</td>
+                        <td th:text="${proiezione.ora}">15:18</td>
+                        <td th:text="${proiezione.festival.nome}">AGG Film Festival</td>
+                        <td th:text="${proiezione.sala.nome}">Cinema Cadrega</td>
+                        <td th:text="${proiezione.sala.indirizzo}">Via Subaru 1, Milano</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <h2>Proiezioni: </h2>
-    <table>
-        <tr>
-            <td>Data</td>
-            <td>Ora</td>
-            <td>Festival</td>
-            <td>Sala</td>
-            <td>Indirizzo</td>
-        </tr>
-        <tr th:each="proiezione : ${proiezioniList}">
-            <td th:text="${#temporals.format(proiezione.data, 'dd/MM/yyyy')}">20/02/2025</td>
-            <td th:text="${proiezione.ora}">15:18</td>
-            <td th:text="${proiezione.festival.nome}">AGG Film Festival</td>
-            <td th:text="${proiezione.sala.nome}">Cinema Cadrega</td>
-            <td th:text="${proiezione.sala.indirizzo}">Via Subaru 1, Milano</td>
-        </tr>
-    </table>
+        <h2 class="section-title">Recensioni</h2>
 
-    <h2>Recensioni: </h2>
-    <ul>
-        <li th:each="recensione : ${recensioniList}">
-            <strong
-                th:text="${recensione.utente.name} + ' ' + ${recensione.utente.surname} + ', ' + ${#temporals.format(recensione.data, 'dd/MM/yyyy')} + ': '">Mario
-                Rossi, 28/02/2025 </strong>
-            <span th:text="${recensione.testo}">Letsgosky Lesgooo</span>
-            <span th:text="${recensione.voto}">10</span>
+        <div sec:authorize="hasAnyAuthority('USER','ADMIN')" class="mb-2">
+            <a th:href="@{'/film/' + ${film.id} + '/recensioni/new'}" class="btn btn-accent btn-sm">Scrivi una recensione</a>
+        </div>
+
+        <div th:each="recensione : ${recensioniList}" class="recensione">
+            <div class="recensione-header">
+                <span class="recensione-autore"
+                    th:text="${recensione.utente.name} + ' ' + ${recensione.utente.surname}">Mario Rossi</span>
+                <span class="recensione-voto" th:text="${recensione.voto} + '/10'">10/10</span>
+            </div>
+            <p class="text-muted" style="margin-bottom: 0.3rem; font-size: 0.85rem;"
+                th:text="${#temporals.format(recensione.data, 'dd/MM/yyyy')}">28/02/2025</p>
+            <p th:text="${recensione.testo}">Letsgosky Lesgooo</p>
+
             <span sec:authorize="isAuthenticated()"
-                th:if="${recensione.utente.credentials != null and recensione.utente.credentials.username == #authentication.name}">
-                <a th:href="@{'/film/' + ${film.id} + '/recensioni/' + ${recensione.id} + '/edit'}">
-                    <button type="button">Modifica</button>
-                </a>
+                th:if="${recensione.utente.credentials != null and recensione.utente.credentials.username == #authentication.name}"
+                class="flex flex-gap">
+                <a th:href="@{'/film/' + ${film.id} + '/recensioni/' + ${recensione.id} + '/edit'}" class="btn btn-outline btn-sm">Modifica</a>
                 <form th:action="@{'/film/' + ${film.id} + '/recensioni/' + ${recensione.id} + '/delete'}" method="POST"
-                    style="display:inline;"
                     onclick="return confirm('Sei sicuro di voler eliminare questa recensione?');">
-                    <button type="submit">Elimina</button>
+                    <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
                 </form>
             </span>
-        </li>
-    </ul>
-    <div sec:authorize="hasAnyAuthority('USER','ADMIN')">
-        <a th:href="@{'/film/' + ${film.id} + '/recensioni/new'}"> Scrivi una recensione</a>
-    </div>
+        </div>
 
+    </div>
 </body>
 
 </html>

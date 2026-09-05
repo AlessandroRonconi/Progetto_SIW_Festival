@@ -1,8 +1,148 @@
+/* ==========================================================================
+   SIW Festival - Foglio di stile globale
+   Palette 1 "Cinema classico" + Playfair Display (heading) / Inter (body)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    /* Colori */
+    --color-primary: #7a1f2b;
+    --color-primary-dark: #5c1620;
+    --color-accent: #d4a94c;
+    --color-accent-dark: #b78d3a;
+    --color-bg: #faf7f2;
+    --color-surface: #ffffff;
+    --color-text: #2b2320;
+    --color-text-muted: #766b63;
+    --color-border: #e5ded4;
+    --color-danger: #b3261e;
+    --color-success: #2e7d4f;
+
+    /* Font */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Spaziature e forme */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 1px 3px rgba(43, 35, 32, 0.08);
+    --shadow-md: 0 4px 12px rgba(43, 35, 32, 0.12);
+    --transition: 0.15s ease;
+}
+
+/* ==========================================================================
+   Reset di base
+   ========================================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+a:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Tipografia
+   ========================================================================== */
+
+h1, h2, h3, h4,
+.film-titolo, .festival-nome, .page-title {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0 0 0.6em 0;
+}
+
+h1, .page-title { font-size: 2.2rem; }
+h2 { font-size: 1.7rem; }
+h3 { font-size: 1.3rem; }
+h4 { font-size: 1.1rem; }
+
+p {
+    margin: 0 0 1em 0;
+}
+
+.text-muted {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-accent);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+/* ==========================================================================
+   Layout generale
+   ========================================================================== */
+
+.page-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem 1.5rem;
+}
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 900px) {
+    .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   Navbar
+   ========================================================================== */
+
 .siw-navbar {
-    background-color: #7a1f2b;
-    /* rosso bordeaux */
+    background-color: var(--color-primary);
     width: 100%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .siw-navbar-container {
@@ -12,20 +152,27 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 56px;
+    height: 60px;
 }
 
 .siw-navbar-brand {
+    font-family: var(--font-heading);
     color: #ffffff;
-    font-weight: bold;
-    font-size: 1.2rem;
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-decoration: none;
+}
+
+.siw-navbar-brand:hover {
+    color: var(--color-accent);
     text-decoration: none;
 }
 
 .siw-navbar-links {
     list-style: none;
     display: flex;
-    gap: 1.5rem;
+    align-items: center;
+    gap: 1.6rem;
     margin: 0;
     padding: 0;
 }
@@ -34,18 +181,19 @@
     color: #ffffff;
     text-decoration: none;
     font-size: 0.95rem;
-    transition: opacity 0.15s ease;
+    font-weight: 500;
+    transition: color var(--transition);
 }
 
 .siw-navbar-links li a:hover {
-    opacity: 0.75;
-    text-decoration: underline;
+    color: var(--color-accent);
+    text-decoration: none;
 }
 
 .siw-navbar-user {
-    color: #ffffff;
+    color: var(--color-accent);
     font-size: 0.9rem;
-    opacity: 0.85;
+    font-weight: 500;
 }
 
 .siw-navbar-logout-form {
@@ -56,13 +204,360 @@
     background: none;
     border: none;
     color: #ffffff;
+    font-family: var(--font-body);
     font-size: 0.95rem;
+    font-weight: 500;
     cursor: pointer;
     padding: 0;
-    text-decoration: none;
 }
 
 .siw-navbar-logout-btn:hover {
-    opacity: 0.75;
+    color: var(--color-accent);
     text-decoration: underline;
 }
+
+/* ==========================================================================
+   Card (film, festival, regista, sala)
+   ========================================================================== */
+
+.card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.4rem;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+}
+
+.card-subtitle {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+}
+
+.card-footer {
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-image {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.8rem;
+}
+
+/* Badge (genere, stato proiezione, ruolo utente) */
+
+.badge {
+    display: inline-block;
+    background: var(--color-accent);
+    color: #2b2320;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.badge-outline {
+    background: transparent;
+    border: 1px solid var(--color-accent-dark);
+    color: var(--color-accent-dark);
+}
+
+.badge-success {
+    background: var(--color-success);
+    color: #ffffff;
+}
+
+.badge-danger {
+    background: var(--color-danger);
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   Bottoni
+   ========================================================================== */
+
+.btn {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.65rem 1.3rem;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-dark);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.btn-accent {
+    background: var(--color-accent);
+    color: #2b2320;
+}
+
+.btn-accent:hover {
+    background: var(--color-accent-dark);
+    text-decoration: none;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1.5px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-outline:hover {
+    background: var(--color-primary);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.btn-danger {
+    background: var(--color-danger);
+    color: #ffffff;
+}
+
+.btn-danger:hover {
+    background: #8f1e18;
+    text-decoration: none;
+}
+
+.btn-sm {
+    padding: 0.4rem 0.9rem;
+    font-size: 0.85rem;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Form (login, registrazione, recensioni, gestione admin)
+   ========================================================================== */
+
+.form-container {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 2rem;
+    max-width: 480px;
+    margin: 0 auto;
+    box-shadow: var(--shadow-sm);
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    color: var(--color-text);
+}
+
+.form-control {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(122, 31, 43, 0.15);
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-error {
+    color: var(--color-danger);
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+/* ==========================================================================
+   Tabelle (elenchi amministrativi: proiezioni, sale, registi)
+   ========================================================================== */
+
+.table-wrapper {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: var(--color-primary);
+}
+
+thead th {
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+}
+
+tbody td {
+    padding: 0.8rem 1rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.92rem;
+}
+
+tbody tr:hover {
+    background: var(--color-bg);
+}
+
+/* ==========================================================================
+   Alert / messaggi di feedback
+   ========================================================================== */
+
+.alert {
+    padding: 0.9rem 1.2rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.5rem;
+    font-size: 0.92rem;
+    border-left: 4px solid transparent;
+}
+
+.alert-success {
+    background: #eaf5ee;
+    border-left-color: var(--color-success);
+    color: #1e5c38;
+}
+
+.alert-danger {
+    background: #fbeceb;
+    border-left-color: var(--color-danger);
+    color: #8a1f19;
+}
+
+.alert-info {
+    background: #f3ede0;
+    border-left-color: var(--color-accent);
+    color: #6b5423;
+}
+
+/* ==========================================================================
+   Recensioni
+   ========================================================================== */
+
+.recensione {
+    border-bottom: 1px solid var(--color-border);
+    padding: 1rem 0;
+}
+
+.recensione:last-child {
+    border-bottom: none;
+}
+
+.recensione-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
+}
+
+.recensione-autore {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.recensione-voto {
+    background: var(--color-accent);
+    color: #2b2320;
+    font-weight: 700;
+    padding: 0.15rem 0.6rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.siw-footer {
+    background: var(--color-primary-dark);
+    color: #f2ece6;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.85rem;
+    margin-top: 3rem;
+}
+
+.siw-footer a {
+    color: var(--color-accent);
+}
+
+/* ==========================================================================
+   Utility
+   ========================================================================== */
+
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.flex { display: flex; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.flex-gap { gap: 1rem; }

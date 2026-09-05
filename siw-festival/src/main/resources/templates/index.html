@@ -11,7 +11,10 @@
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    
+    <img src="https://media.gettyimages.com/id/151548076/it/foto/auditorium.webp?s=2048x2048&w=gi&k=20&c=EZbvh2HXzhOpvNcTzCsFL6MjU2hu3-iyB-f462eM_Zo="/>
+    <div sec:authorize="hasAnyAuthority('ADMIN')">
+        <a href="/admin">Console da amministratore</a>
+    </div>
 </body>
 
 </html>

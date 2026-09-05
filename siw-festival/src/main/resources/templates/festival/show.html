@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -12,45 +12,59 @@
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
 
-    <h1 th:text="${festival.nome} + ' ' + ${festival.anno}">Lorem Ipsum Film Festival 2025</h1>
+        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna indietro</a>
 
-    <h2
-        th:text="${festival.citta} + ', ' + ${#temporals.format(festival.dataInizio, 'dd/MM/yyyy')} + ' - ' + ${#temporals.format(festival.dataFine, 'dd/MM/yyyy')}">
-        Milano, 01/01/2025 - 08/01/2025
-    </h2>
+        <h1 th:text="${festival.nome} + ' ' + ${festival.anno}">Lorem Ipsum Film Festival 2025</h1>
 
-    <span th:text="${festival.descrizione}"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-        consequat mi quis pretium semper.</span>
+        <p class="text-muted mb-3">
+            <span th:text="${festival.citta}">Milano</span> ·
+            <span th:text="${#temporals.format(festival.dataInizio, 'dd/MM/yyyy')} + ' - ' + ${#temporals.format(festival.dataFine, 'dd/MM/yyyy')}">01/01/2025 - 08/01/2025</span>
+        </p>
 
-    <h2> Tutti i film in concorso: </h2>
-    <div>
-        <ul>
-            <li th:each="film : ${filmList}">
-                <a th:href="@{'/film/' + ${film.id}}" th:text="${film.titolo}">Inception</a>
-            </li>
-        </ul>
+        <p th:text="${festival.descrizione}" class="mb-3">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum consequat mi quis pretium semper.
+        </p>
+
+        <h2 class="section-title">Film in concorso</h2>
+        <div class="grid grid-3 mb-3">
+            <div class="card" th:each="film : ${filmList}">
+                <h3 class="card-title" th:text="${film.titolo}">Inception</h3>
+                <p class="card-subtitle" th:text="${film.genere} + ' · ' + ${film.anno}">Fantascienza · 2010</p>
+                <div class="card-footer">
+                    <a th:href="@{'/film/' + ${film.id}}" class="btn btn-outline btn-sm">Dettagli</a>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Programma delle proiezioni</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Ora</th>
+                        <th>Film</th>
+                        <th>Sala</th>
+                        <th>Indirizzo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="proiezione : ${proiezioniList}">
+                        <td th:text="${#temporals.format(proiezione.data, 'dd/MM/yyyy')}">20/02/2025</td>
+                        <td th:text="${proiezione.ora}">15:18</td>
+                        <td>
+                            <a th:href="@{'/film/' + ${proiezione.film.id}}" th:text="${proiezione.film.titolo}">Inception</a>
+                        </td>
+                        <td th:text="${proiezione.sala.nome}">Cinema Cadrega</td>
+                        <td th:text="${proiezione.sala.indirizzo}">Via Subaru 1, Milano</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
-
-    <h2>Programma delle proiezioni: </h2>
-    <table>
-        <tr>
-            <td>Data</td>
-            <td>Ora</td>
-            <td>Film</td>
-            <td>Sala</td>
-            <td>Indirizzo</td>
-        </tr>
-        <tr th:each="proiezione : ${proiezioniList}">
-            <td th:text="${#temporals.format(proiezione.data, 'dd/MM/yyyy')}">20/02/2025</td>
-            <td th:text="${proiezione.ora}">15:18</td>
-            <td th:text="${proiezione.film.titolo}">Inception</td>
-            <td th:text="${proiezione.sala.nome}">Cinema Cadrega</td>
-            <td th:text="${proiezione.sala.indirizzo}">Via Subaru 1, Milano</td>
-        </tr>
-    </table>
-
 </body>
 
 </html>

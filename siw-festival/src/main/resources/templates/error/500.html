@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>500 - Errore interno</title>
+    <title>500 - Errore Interno</title>
     <link rel="stylesheet" th:href="@{/css/stile.css}">
 </head>
 
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container text-center" style="max-width: 500px;">
+        <h1 class="page-title" style="font-size: 4rem; margin-bottom: 0;">500</h1>
+        <p class="text-muted mb-3">Errore interno</p>
 
-    <p th:text="${errorMessage}">500: Errore interno.</p>
+        <div class="flex flex-gap" style="justify-content: center;">
+            <a href="#" onclick="history.back(); return false;" class="btn btn-outline">← Torna indietro</a>
+            <a th:href="@{/}" class="btn btn-primary">Vai alla home</a>
+        </div>
+    </div>
 </body>
 
 </html>
