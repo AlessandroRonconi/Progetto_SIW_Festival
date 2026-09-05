@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="${film.titolo} + ' - Nuova Recensione'">Nuova Recensione</title>
@@ -12,33 +11,40 @@
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
 
-    <h1>Aggiungi una recensione</h1>
-    <form th:action="@{/film/{id}/recensioni/new(id=${film.id})}" method="POST" th:object="${recensione}">
+        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna
+            indietro</a>
 
-        <p th:if="${errore}" th:text="${errore}" style="color:red;">Errore</p>
+        <h1 class="page-title" th:text="'Recensisci: ' + ${film.titolo}">Aggiungi una recensione</h1>
 
-        <div>
-            <label for="voto">Voto (da 1 a 10):</label>
-            <select id="voto" th:field="*{voto}">
-                <option value="">-- Seleziona un voto --</option>
-                <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}">
-                </option>
-            </select>
-            <span th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}">Errore Voto</span>
-        </div>
+        <form th:action="@{/film/{id}/recensioni/new(id=${film.id})}" method="POST" th:object="${recensione}"
+            class="form-container">
 
-        <div>
-            <label for="testo">Testo:</label>
-            <input id="testo" required type="text" th:field="*{testo}" />
-            <span th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}">Errore Testo</span>
-        </div>
+            <div th:if="${errore}" class="alert alert-danger" th:text="${errore}">Errore</div>
 
-        <span><button type="submit">Salva</button></span>
+            <div class="form-group">
+                <label for="voto">Voto (da 1 a 10)</label>
+                <select id="voto" th:field="*{voto}" class="form-control">
+                    <option value="">-- Seleziona un voto --</option>
+                    <option th:each="i : ${#numbers.sequence(1, 10)}" th:value="${i}" th:text="${i}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('voto')}" th:errors="*{voto}" class="form-error">Errore Voto</div>
+            </div>
 
-    </form>
+            <div class="form-group">
+                <label for="testo">Testo</label>
+                <input id="testo" required type="text" th:field="*{testo}" class="form-control" />
+                <div th:if="${#fields.hasErrors('testo')}" th:errors="*{testo}" class="form-error">Errore Testo</div>
+            </div>
 
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Salva</button>
+            </div>
+
+        </form>
+
+    </div>
 </body>
 
 </html>

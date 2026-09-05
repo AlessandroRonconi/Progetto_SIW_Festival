@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -11,32 +11,36 @@
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
 
-    <h1>Login</h1>
+        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna
+            indietro</a>
 
-    <p th:if="${errorMessage}" style="color: red;">
-        <!--grazie a questo vedi l'errore passato come parametro da authcontroller-->
-        <span th:text="${errorMessage}">Username o password non validi</span>
-    </p>
+        <h1 class="page-title text-center">Login</h1>
 
-    <form th:action="@{/login}" method="POST">
-        <div>
-            <span>Username:</span>
-            <span><input name="username" type="text" required /></span>
+        <div th:if="${errorMessage}" class="alert alert-danger" style="max-width:480px; margin:0 auto 1rem auto;">
+            <span th:text="${errorMessage}">Username o password non validi</span>
         </div>
-        <div>
-            <span>Password:</span>
-            <span><input name="password" type="password" required /></span>
+        <div th:if="${param.error != null and errorMessage == null}" class="alert alert-danger"
+            style="max-width:480px; margin:0 auto 1rem auto;">
+            Username o password errati
         </div>
-        <div>
-            <span th:if="${param.error != null}">Username o password errati</span>
-        </div>
-        <div>
-            <span><button type="submit">Login</button></span>
-        </div>
-    </form>
 
+        <form th:action="@{/login}" method="POST" class="form-container">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" required class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" required class="form-control" />
+            </div>
+            <div class="form-actions" style="justify-content: center;">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+
+    </div>
 </body>
 
 </html>

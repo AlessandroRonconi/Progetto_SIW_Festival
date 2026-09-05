@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -10,25 +10,31 @@
 </head>
 
 <body>
-
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
 
-    <h1 th:text="${regista.nome} + ' ' + ${regista.cognome}">Pizzibarbaro Della Maremma</h1>
+        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna
+            indietro</a>
 
-    <h3 th:text="${regista.nazionalita} + ', ' + ${#temporals.format(regista.dataNascita, 'dd/MM/yyyy')}">Italia,
-        01/01/1999</h3>
+        <h1 th:text="${regista.nome} + ' ' + ${regista.cognome}">Pizzibarbaro Della Maremma</h1>
 
-    <h2>Film: </h2>
-    <ul>
-        <li th:each="film : ${filmList}">
-            <a th:href="@{'/film/' + ${film.id}}" th:text="${film.titolo} + ' (' + ${film.anno} + ')'">Il Sindaco di
-                Lignano (2019)</a>
-        </li>
-    </ul>
+        <p class="text-muted mb-3"
+            th:text="${regista.nazionalita} + ' · ' + ${#temporals.format(regista.dataNascita, 'dd/MM/yyyy')}">
+            Italia · 01/01/1999</p>
 
+        <h2 class="section-title">Film</h2>
+        <div class="grid grid-3">
+            <div class="card" th:each="film : ${filmList}">
+                <h3 class="card-title" th:text="${film.titolo}">Il Sindaco di Lignano</h3>
+                <p class="card-subtitle" th:text="${film.anno}">2019</p>
+                <div class="card-footer">
+                    <a th:href="@{'/film/' + ${film.id}}" class="btn btn-outline btn-sm">Dettagli</a>
+                </div>
+            </div>
+        </div>
 
+    </div>
 </body>
 
 </html>
