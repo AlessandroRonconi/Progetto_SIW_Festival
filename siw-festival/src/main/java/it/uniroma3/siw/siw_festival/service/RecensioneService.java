@@ -1,6 +1,7 @@
 package it.uniroma3.siw.siw_festival.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,6 +70,10 @@ public class RecensioneService {
 
     public void deleteById(Long rId) {
         this.recensioneRepository.deleteById(rId);
+    }
+
+    public List<Recensione> findByFilmId(Long id) {
+        return this.recensioneRepository.findByFilmIdWithUtente(id);
     }
 
 }
