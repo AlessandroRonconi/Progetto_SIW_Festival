@@ -10,7 +10,7 @@
             <ul class="siw-navbar-links">
                 <li><a th:href="@{/}">Home</a></li>
                 <li><a th:href="@{/festival}">Festival</a></li>
-                <li><a th:href="@{/react/index.html}">Cerca film</a></li>
+                <li><a th:href="@{/film/cercaFilm}">Cerca film</a></li>
 
                 <!-- Link solo per ADMIN -->
                 <li sec:authorize="hasRole('ADMIN')">

@@ -10,6 +10,7 @@ export default defineConfig({
     outDir: path.resolve(import.meta.dirname, "../src/main/resources/static/react"),
     emptyOutDir: true,
     rollupOptions: {
+      input: path.resolve(import.meta.dirname, "cercaFilm.html"),
       output: {
         entryFileNames: "assets/index.js",
         chunkFileNames: "assets/[name].js",

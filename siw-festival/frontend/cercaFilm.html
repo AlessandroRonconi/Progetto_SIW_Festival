@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>frontend</title>
+</head>
+
+<body>
+  <nav class="siw-navbar">
+    <div class="siw-navbar-container">
+      <a th:href="@{/}" class="siw-navbar-brand">SIW Festival</a>
+
+      <ul class="siw-navbar-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/festival">Festival</a></li>
+        <li><a href="/react/cercaFilm.html">Cerca film</a></li>
+      </ul>
+    </div>
+  </nav>
+  <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>

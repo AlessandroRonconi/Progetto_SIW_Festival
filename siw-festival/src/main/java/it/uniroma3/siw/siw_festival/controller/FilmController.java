@@ -21,6 +21,7 @@ import it.uniroma3.siw.siw_festival.service.RecensioneService;
 import it.uniroma3.siw.siw_festival.service.RegistaService;
 import jakarta.validation.Valid;
 
+
 @Controller
 public class FilmController {
 
@@ -36,6 +37,12 @@ public class FilmController {
         this.registaService = registaService;
         this.proiezioneService = proiezioneService;
     }
+
+    @GetMapping("/film/cercaFilm")
+    public String getCercaFilm() {
+        return "film/cercaFilm";
+    }
+    
 
     @GetMapping("/film/{id}")
     public String getFilmDetail(@PathVariable Long id, @AuthenticationPrincipal UserDetails userDetails, Model model) {
