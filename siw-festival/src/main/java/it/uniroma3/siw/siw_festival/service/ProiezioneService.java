@@ -3,7 +3,6 @@ package it.uniroma3.siw.siw_festival.service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +44,7 @@ public class ProiezioneService {
 
     public Proiezione findById(Long id) {
         return this.proiezioneRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Proiezione non trovata"));
+                .orElseThrow(() -> new ResourceNotFoundException("Proiezione non trovata"));
     }
 
     @Transactional
