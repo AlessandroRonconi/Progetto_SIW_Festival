@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="'Aggiungi film a ' + ${festival.nome}">Aggiungi film</title>
     <link rel="stylesheet" th:href="@{/css/stile.css}">
 </head>
@@ -10,19 +11,29 @@
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
+        
+        <a th:href="@{'/admin/festival/' + ${festival.id}}" class="mb-2" style="display:inline-block;">← Torna al
+            festival</a>
 
-    <h3><a th:href="@{'/admin/festival/' + ${festival.id}}">Torna al festival</a></h3>
-    <h1 th:text="'Aggiungi un film a ' + ${festival.nome}">Aggiungi film</h1>
+        <h1 class="page-title" th:text="'Aggiungi un film a ' + ${festival.nome}">Aggiungi film</h1>
 
-    <form th:action="@{'/admin/festival/' + ${festival.id} + '/addFilm'}" method="POST">
-        <select name="filmId" required>
-            <option value="" disabled selected>Seleziona un film</option>
-            <option th:each="film : ${filmDisponibili}" th:value="${film.id}" th:text="${film.titolo}">Titolo film
-            </option>
-        </select>
-        <button type="submit">Aggiungi</button>
-    </form>
+        <form th:action="@{'/admin/festival/' + ${festival.id} + '/addFilm'}" method="POST" class="form-container"
+            style="max-width: 500px;">
+            <div class="form-group">
+                <label for="filmId">Film</label>
+                <select id="filmId" name="filmId" required class="form-control">
+                    <option value="" disabled selected>Seleziona un film</option>
+                    <option th:each="film : ${filmDisponibili}" th:value="${film.id}" th:text="${film.titolo}">Titolo
+                        film</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Aggiungi</button>
+            </div>
+        </form>
+
+    </div>
 </body>
 
 </html>

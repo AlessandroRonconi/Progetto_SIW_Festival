@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nuova proiezione (Admin)</title>
     <link rel="stylesheet" th:href="@{/css/stile.css}">
 </head>
@@ -10,55 +11,55 @@
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
-    
-    <h3><a th:href="@{'/admin/festival/' + ${festival.id}}">Torna al festival</a></h3>
-    <h1 th:text="'Aggiungi una proiezione a ' + ${festival.nome}">Nuova proiezione</h1>
+    <div class="page-container">
+        
+        <a th:href="@{'/admin/festival/' + ${festival.id}}" class="mb-2" style="display:inline-block;">← Torna al
+            festival</a>
 
-    <p th:if="${errore}" th:text="${errore}" style="color:red;">Errore</p>
+        <h1 class="page-title" th:text="'Aggiungi una proiezione a ' + ${festival.nome}">Nuova proiezione</h1>
 
-    <form th:action="@{'/admin/festival/' + ${festival.id} + '/proiezioni/new'}" th:object="${proiezione}"
-        method="POST">
-        <div>
-            <label for="data">Data:</label>
-            <input type="date" id="data" th:field="*{data}" required />
-            <span th:if="${#fields.hasErrors('data')}" th:errors="*{data}" style="color:red;"></span>
-        </div>
+        <div th:if="${errore}" class="alert alert-danger" th:text="${errore}">Errore</div>
 
-        <br><br>
+        <form th:action="@{'/admin/festival/' + ${festival.id} + '/proiezioni/new'}" th:object="${proiezione}"
+            method="POST" class="form-container" style="max-width: 600px;">
 
-        <div>
-            <label for="ora">Ora:</label>
-            <input type="time" id="ora" th:field="*{ora}" required />
-            <span th:if="${#fields.hasErrors('ora')}" th:errors="*{ora}" style="color:red;"></span>
-        </div>
+            <div class="grid grid-2">
+                <div class="form-group">
+                    <label for="data">Data</label>
+                    <input type="date" id="data" th:field="*{data}" required class="form-control" />
+                    <div th:if="${#fields.hasErrors('data')}" th:errors="*{data}" class="form-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="ora">Ora</label>
+                    <input type="time" id="ora" th:field="*{ora}" required class="form-control" />
+                    <div th:if="${#fields.hasErrors('ora')}" th:errors="*{ora}" class="form-error"></div>
+                </div>
+            </div>
 
-        <br><br>
+            <div class="form-group">
+                <label for="film">Film</label>
+                <select id="film" th:field="*{film.id}" required class="form-control">
+                    <option th:each="f : ${filmList}" th:value="${f.id}" th:text="${f.titolo}">Titolo film</option>
+                </select>
+                <div th:if="${#fields.hasErrors('film')}" th:errors="*{film}" class="form-error"></div>
+            </div>
 
-        <div>
-            <label for="film">Film:</label>
-            <select id="film" th:field="*{film.id}" required>
-                <option th:each="f : ${filmList}" th:value="${f.id}" th:text="${f.titolo}">Titolo film</option>
-            </select>
-            <span th:if="${#fields.hasErrors('film')}" th:errors="*{film}" style="color:red;"></span>
-        </div>
+            <div class="form-group">
+                <label for="sala">Sala</label>
+                <select id="sala" th:field="*{sala.id}" required class="form-control">
+                    <option th:each="s : ${salaList}" th:value="${s.id}"
+                        th:text="${s.nome} + ' (' + ${s.capienza} + ' posti)'">Sala</option>
+                </select>
+                <div th:if="${#fields.hasErrors('sala')}" th:errors="*{sala}" class="form-error"></div>
+            </div>
 
-        <br><br>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Salva</button>
+            </div>
 
-        <div>
-            <label for="sala">Sala:</label>
-            <select id="sala" th:field="*{sala.id}" required>
-                <option th:each="s : ${salaList}" th:value="${s.id}"
-                    th:text="${s.nome} + ' (' + ${s.capienza} + ' posti)'">
-                    Sala</option>
-            </select>
-            <span th:if="${#fields.hasErrors('sala')}" th:errors="*{sala}" style="color:red;"></span>
-        </div>
+        </form>
 
-        <br><br>
-
-        <button type="submit">Salva</button>
-    </form>
+    </div>
 </body>
 
 </html>

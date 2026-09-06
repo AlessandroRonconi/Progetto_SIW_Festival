@@ -13,63 +13,77 @@
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
 
-    <h1 th:text="${festival.nome} + ' ' + ${festival.anno}">Lorem Ipsum Film Festival 2025</h1>
+        <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
 
-    <h2
-        th:text="${festival.citta} + ', ' + ${#temporals.format(festival.dataInizio, 'dd/MM/yyyy')} + ' - ' + ${#temporals.format(festival.dataFine, 'dd/MM/yyyy')}">
-        Milano, 01/01/2025 - 08/01/2025
-    </h2>
+        <h1 th:text="${festival.nome} + ' ' + ${festival.anno}">Lorem Ipsum Film Festival 2025</h1>
 
-    <span th:text="${festival.descrizione}"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-        consequat mi quis pretium semper.</span>
+        <p class="text-muted mb-3">
+            <span th:text="${festival.citta}">Milano</span> ·
+            <span
+                th:text="${#temporals.format(festival.dataInizio, 'dd/MM/yyyy')} + ' - ' + ${#temporals.format(festival.dataFine, 'dd/MM/yyyy')}">01/01/2025
+                - 08/01/2025</span>
+        </p>
 
-    <h2> Tutti i film in concorso: </h2>
-    <div>
-        <ul>
-            <li th:each="film : ${filmList}">
-                <a th:href="@{'/film/' + ${film.id}}" th:text="${film.titolo}">Inception</a>
-                <form th:action="@{'/admin/festival/' + ${festival.id} + '/film/' + ${film.id} + '/delete'}"
-                    method="POST" style="display:inline;"
-                    onclick="return confirm('Sei sicuro di voler rimuovere questo film?');">
-                    <button type="submit">Rimuovi</button>
-                </form>
-            </li>
-        </ul>
+        <p th:text="${festival.descrizione}" class="mb-3">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum consequat mi quis pretium semper.
+        </p>
+
+        <h2 class="section-title"> Film in concorso: </h2>
+        <div class="mb-2">
+            <a th:href="@{'/admin/festival/' + ${festival.id} + '/addFilm'}" class="btn btn-accent btn-sm">Aggiungi un
+                film</a>
+        </div>
+        <div class="grid grid-3 mb-3">
+            <div class="card" th:each="film : ${filmList}">
+                <h3 class="card-title" th:text="${film.titolo}">Inception</h3>
+                <p class="card-subtitle" th:text="${film.genere} + ' · ' + ${film.anno}">Fantascienza · 2010</p>
+                <div class="card-footer">
+                    <a th:href="@{'/film/' + ${film.id}}" class="btn btn-outline btn-sm">Dettagli</a>
+                    <form th:action="@{'/admin/festival/' + ${festival.id} + '/film/' + ${film.id} + '/delete'}"
+                        method="POST" style="display:inline;"
+                        onclick="return confirm('Sei sicuro di voler rimuovere questo film?');">
+                        <button type="submit" class="btn btn-danger btn-sm">Rimuovi</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Programma delle proiezioni: </h2>
+        <div class="mb-2">
+            <a th:href="@{'/admin/festival/' + ${festival.id} + '/proiezioni/new'}"
+                class="btn btn-accent btn-sm">Aggiungi una proiezione</a>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>Data</td>
+                    <td>Ora</td>
+                    <td>Film</td>
+                    <td>Sala</td>
+                    <td>Indirizzo</td>
+                    <td>Opzioni</td>
+                </tr>
+                <tr th:each="proiezione : ${proiezioniList}">
+                    <td th:text="${#temporals.format(proiezione.data, 'dd/MM/yyyy')}">20/02/2025</td>
+                    <td th:text="${proiezione.ora}">15:18</td>
+                    <td th:text="${proiezione.film.titolo}">Inception</td>
+                    <td th:text="${proiezione.sala.nome}">Cinema Cadrega</td>
+                    <td th:text="${proiezione.sala.indirizzo}">Via Subaru 1, Milano</td>
+                    <td>
+                        <a th:href="@{'/admin/proiezioni/' + ${proiezione.id} + '/edit'}"
+                            class="btn btn-outline btn-sm">Modifica</a>
+                        <form th:action="@{'/admin/proiezioni/' + ${proiezione.id} + '/delete'}" method="POST"
+                            style="display:inline;"
+                            onclick="return confirm('Sei sicuro di voler eliminare questa proiezione?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
-    <h3><a th:href="@{'/admin/festival/' + ${festival.id} + '/addFilm'}">Aggiungi un film</a></h3>
-
-    <h2>Programma delle proiezioni: </h2>
-    <table>
-        <tr>
-            <td>Data</td>
-            <td>Ora</td>
-            <td>Film</td>
-            <td>Sala</td>
-            <td>Indirizzo</td>
-            <td>Opzioni</td>
-        </tr>
-        <tr th:each="proiezione : ${proiezioniList}">
-            <td th:text="${#temporals.format(proiezione.data, 'dd/MM/yyyy')}">20/02/2025</td>
-            <td th:text="${proiezione.ora}">15:18</td>
-            <td th:text="${proiezione.film.titolo}">Inception</td>
-            <td th:text="${proiezione.sala.nome}">Cinema Cadrega</td>
-            <td th:text="${proiezione.sala.indirizzo}">Via Subaru 1, Milano</td>
-            <td>
-                <a th:href="@{'/admin/proiezioni/' + ${proiezione.id} + '/edit'}">
-                    <button type="button">Modifica</button>
-                </a>
-                <form th:action="@{'/admin/proiezioni/' + ${proiezione.id} + '/delete'}" method="POST"
-                    style="display:inline;"
-                    onclick="return confirm('Sei sicuro di voler eliminare questa proiezione?');">
-                    <button type="submit">Elimina</button>
-                </form>
-            </td>
-        </tr>
-    </table>
-    <h3><a th:href="@{'/admin/festival/' + ${festival.id} + '/proiezioni/new'}">Aggiungi una proiezione</a></h3>
-
 </body>
 
 </html>

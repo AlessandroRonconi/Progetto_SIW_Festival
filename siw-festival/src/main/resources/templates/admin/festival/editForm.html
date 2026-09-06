@@ -1,52 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> SIWFestival - Modifica Festival </title>
+    <title>SIWFestival - Modifica Festival</title>
     <link rel="stylesheet" th:href="@{/css/stile.css}">
 </head>
 
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
+        
+        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna
+            indietro</a>
 
-    <h1>Modifica Festival</h1>
+        <h1 class="page-title">Modifica Festival</h1>
 
-    <form th:action="@{/admin/festival/{id}/edit(id=${festival.id})}" method="POST" th:object="${festival}">
+        <form th:action="@{/admin/festival/{id}/edit(id=${festival.id})}" method="POST" th:object="${festival}"
+            class="form-container" style="max-width: 600px;">
 
-        <p th:if="${errore}" th:text="${errore}" style="color:red;">Errore</p>
+            <div th:if="${errore}" class="alert alert-danger" th:text="${errore}">Errore</div>
 
-        <div>
-            Nome: <span><input type="text" th:field="*{nome}" /></span>
-            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="error-message"></span>
-        </div>
-        <div>
-            Anno: <span><input type="text" th:field="*{anno}" /></span>
-            <span th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}" class="error-message"></span>
-        </div>
-        <div>
-            Città: <span><input type="text" th:field="*{citta}" /></span>
-            <span th:if="${#fields.hasErrors('citta')}" th:errors="*{citta}" class="error-message"></span>
-        </div>
-        <div>
-            Data inizio: <span><input type="date" th:field="*{dataInizio}" /></span>
-            <span th:if="${#fields.hasErrors('dataInizio')}" th:errors="*{dataInizio}" class="error-message"></span>
-        </div>
-        <div>
-            Data fine: <span><input type="date" th:field="*{dataFine}" /></span>
-            <span th:if="${#fields.hasErrors('dataFine')}" th:errors="*{dataFine}" class="error-message"></span>
-        </div>
-        <div>
-            Descrizione: <span><input type="text" th:field="*{descrizione}" /></span>
-            <span th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}" class="error-message"></span>
-        </div>
-        <div>
-            <button type="submit">Salva</button>
-        </div>
-    </form>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input id="nome" type="text" th:field="*{nome}" class="form-control" />
+                <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="form-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="anno">Anno</label>
+                <input id="anno" type="text" th:field="*{anno}" class="form-control" />
+                <div th:if="${#fields.hasErrors('anno')}" th:errors="*{anno}" class="form-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="citta">Città</label>
+                <input id="citta" type="text" th:field="*{citta}" class="form-control" />
+                <div th:if="${#fields.hasErrors('citta')}" th:errors="*{citta}" class="form-error"></div>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="form-group">
+                    <label for="dataInizio">Data inizio</label>
+                    <input id="dataInizio" type="date" th:field="*{dataInizio}" class="form-control" />
+                    <div th:if="${#fields.hasErrors('dataInizio')}" th:errors="*{dataInizio}" class="form-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="dataFine">Data fine</label>
+                    <input id="dataFine" type="date" th:field="*{dataFine}" class="form-control" />
+                    <div th:if="${#fields.hasErrors('dataFine')}" th:errors="*{dataFine}" class="form-error"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="descrizione">Descrizione</label>
+                <input id="descrizione" type="text" th:field="*{descrizione}" class="form-control" />
+                <div th:if="${#fields.hasErrors('descrizione')}" th:errors="*{descrizione}" class="form-error"></div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Salva</button>
+            </div>
+
+        </form>
+
+    </div>
 </body>
 
 </html>

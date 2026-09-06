@@ -11,38 +11,27 @@
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    
 
-    <h1>
-        <a href="/admin/festival"><span th:text="'Lista dei Festival' + ' (' + ${numeroFestival} + ')'">Lista dei
-                Festival (1)</span></a>
-    </h1>
+    <div class="page-container">
+        <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+        <h1>
+            <a href="/admin/festival"><span th:text="'Gestione dei Festival' + ' (' + ${numeroFestival} + ')'">Gestione dei
+                    Festival (1)</span></a>
+        </h1>
 
-    <h1>
-        <a href="/admin/film">Lista dei Film</a>
-    </h1>
+        <h1>
+            <a href="/admin/film">Gestione dei Film</a>
+        </h1>
 
-    <h1>
-        <a href="/admin/registi">Lista dei Registi</a>
-    </h1>
+        <h1>
+            <a href="/admin/registi">Gestione dei Registi</a>
+        </h1>
 
-    <h1>
-        <a href="/admin/sale">Lista delle Sale</a>
-    </h1>
+        <h1>
+            <a href="/admin/sale">Gestione delle Sale</a>
+        </h1>
 
-    <h2 th:if="${userDetails == null}">
-        <a href="/login">Effettua il Login</a>
-    </h2>
-
-    <h2 th:if="${userDetails == null}">
-        <a href="/register">Registrati</a>
-    </h2>
-
-    <div th:if="${userDetails}">
-        <span th:text="${userDetails.username}"></span>
-        <form th:action="@{/logout}" method="POST" style="display:inline;">
-            <button type="submit">Logout</button>
-        </form>
     </div>
 </body>
 

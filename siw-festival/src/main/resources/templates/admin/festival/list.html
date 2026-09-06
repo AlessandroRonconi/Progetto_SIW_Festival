@@ -4,28 +4,37 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> SIWFestival - Lista dei Festival (Admin)</title>
+    <title>SIWFestival - Lista dei Festival (Admin)</title>
     <link rel="stylesheet" th:href="@{/css/stile.css}">
 </head>
 
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
+        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna
+            indietro</a>
 
-    <div>
-        <ul>
-            <li th:each="festival : ${festivalList}">
-                <a th:href="@{'/admin/festival/' + ${festival.id}}"
-                    th:text="${festival.nome} + ' ' + ${festival.anno}">Festival placeholder 2005</a>
-                <a th:href="@{'/admin/festival/' + ${festival.id} + '/edit'}">
-                    <button type="submit">Modifica</button>
-                </a>
-            </li>
-        </ul>
+        <h1 class="page-title">Gestione Festival</h1>
+
+        <div class="mb-2">
+            <a th:href="@{/admin/festival/new}" class="btn btn-accent btn-sm">Aggiungi un Festival</a>
+        </div>
+        <div class="grid grid-3">
+            <div class="card" th:each="festival : ${festivalList}">
+                <h3 class="card-title" th:text="${festival.nome}">Festival placeholder 2005</h3>
+                <p class="card-subtitle">
+                    <span th:text="${festival.citta}">Lamezia Terme</span> ·
+                    <span th:text="${festival.anno}">2006</span>
+                </p>
+                <div class="card-footer">
+                    <a th:href="@{'/admin/festival/' + ${festival.id}}" class="btn btn-primary btn-sm">Dettagli</a>
+                    <a th:href="@{'/admin/festival/' + ${festival.id} + '/edit'}"
+                        class="btn btn-outline btn-sm">Modifica</a>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <a th:href="@{/admin/festival/new}">Nuovo Festival</a>
 </body>
 
 </html>

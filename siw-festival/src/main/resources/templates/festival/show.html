@@ -14,13 +14,16 @@
 
     <div class="page-container">
 
-        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna indietro</a>
+        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna
+            indietro</a>
 
         <h1 th:text="${festival.nome} + ' ' + ${festival.anno}">Lorem Ipsum Film Festival 2025</h1>
 
         <p class="text-muted mb-3">
             <span th:text="${festival.citta}">Milano</span> ·
-            <span th:text="${#temporals.format(festival.dataInizio, 'dd/MM/yyyy')} + ' - ' + ${#temporals.format(festival.dataFine, 'dd/MM/yyyy')}">01/01/2025 - 08/01/2025</span>
+            <span
+                th:text="${#temporals.format(festival.dataInizio, 'dd/MM/yyyy')} + ' - ' + ${#temporals.format(festival.dataFine, 'dd/MM/yyyy')}">01/01/2025
+                - 08/01/2025</span>
         </p>
 
         <p th:text="${festival.descrizione}" class="mb-3">
@@ -33,7 +36,7 @@
                 <h3 class="card-title" th:text="${film.titolo}">Inception</h3>
                 <p class="card-subtitle" th:text="${film.genere} + ' · ' + ${film.anno}">Fantascienza · 2010</p>
                 <div class="card-footer">
-                    <a th:href="@{'/film/' + ${film.id}}" class="btn btn-outline btn-sm">Dettagli</a>
+                    <a th:href="@{'/film/' + ${film.id}}" class="btn btn-primary btn-sm">Dettagli</a>
                 </div>
             </div>
         </div>
@@ -55,7 +58,8 @@
                         <td th:text="${#temporals.format(proiezione.data, 'dd/MM/yyyy')}">20/02/2025</td>
                         <td th:text="${proiezione.ora}">15:18</td>
                         <td>
-                            <a th:href="@{'/film/' + ${proiezione.film.id}}" th:text="${proiezione.film.titolo}">Inception</a>
+                            <a th:href="@{'/film/' + ${proiezione.film.id}}"
+                                th:text="${proiezione.film.titolo}">Inception</a>
                         </td>
                         <td th:text="${proiezione.sala.nome}">Cinema Cadrega</td>
                         <td th:text="${proiezione.sala.indirizzo}">Via Subaru 1, Milano</td>
