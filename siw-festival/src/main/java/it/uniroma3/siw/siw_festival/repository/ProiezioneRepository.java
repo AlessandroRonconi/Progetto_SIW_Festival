@@ -35,4 +35,6 @@ public interface ProiezioneRepository extends CrudRepository<Proiezione, Long> {
 
         public List<Proiezione> findByFestivalIdOrderByDataAscOraAsc(Long festivalId);
 
+        boolean existsBySalaAndDataAndOraAndIdNot(Sala sala, LocalDate data, LocalTime ora, Long id);
+
 }

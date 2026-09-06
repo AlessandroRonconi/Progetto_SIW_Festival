@@ -50,7 +50,7 @@ public class ProiezioneService {
 
     @Transactional
     public void updateProiezione(Long id, LocalDate data, LocalTime ora, Film film, Sala sala) {
-        if (this.proiezioneRepository.existsBySalaAndDataAndOra(sala, data, ora)) {
+        if (this.proiezioneRepository.existsBySalaAndDataAndOraAndIdNot(sala, data, ora, id)) {
             throw new DuplicateElementException("Sala già occupata in quell'orario");
         }
         Proiezione p = findById(id);
