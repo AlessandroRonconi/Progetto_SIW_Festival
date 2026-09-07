@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -11,14 +11,22 @@
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
 
-    <h1 th:text="${sala.nome}">Sala Placeholder</h1>
+        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna
+            indietro</a>
 
-    <h3 th:text="${sala.indirizzo}">Via Calabria 67, Lamezia Terme</h3>
+        <h1 th:text="${sala.nome}">Sala Placeholder</h1>
 
-    <h3 th:text="${sala.capienza}">420</h3>
+        <p class="text-muted" th:text="${sala.indirizzo}">Via Calabria 67, Lamezia Terme</p>
 
+        <p>
+            <span class="badge badge-outline" th:text="${sala.capienza} + ' posti'">420 posti</span>
+        </p>
+
+        <a th:href="@{'/admin/sale/' + ${sala.id} + '/edit'}" class="btn btn-outline btn-sm mt-2">Modifica</a>
+
+    </div>
 </body>
 
 </html>

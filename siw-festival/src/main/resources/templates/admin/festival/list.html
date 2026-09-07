@@ -15,11 +15,11 @@
         <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna
             indietro</a>
 
-        <h1 class="page-title">Gestione Festival</h1>
-
-        <div class="mb-2">
-            <a th:href="@{/admin/festival/new}" class="btn btn-accent btn-sm">Aggiungi un Festival</a>
+        <div class="flex-between mb-3">
+            <h1 class="page-title" style="margin-bottom: 0;">Festival</h1>
+            <a th:href="@{/admin/festival/new}" class="btn btn-accent btn-sm">Nuovo Festival</a>
         </div>
+
         <div class="grid grid-3">
             <div class="card" th:each="festival : ${festivalList}">
                 <h3 class="card-title" th:text="${festival.nome}">Festival placeholder 2005</h3>

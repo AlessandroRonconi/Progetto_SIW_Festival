@@ -1,44 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Modifica Regista (Admin)</title>
+    <title>Modifica Regista (Admin)</title>
     <link rel="stylesheet" th:href="@{/css/stile.css}">
 </head>
 
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
 
-    <h1>Modifica Regista</h1>
+        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna
+            indietro</a>
 
-    <form th:action="@{/admin/registi/{id}/edit(id=${regista.id})}" method="POST" th:object="${regista}">
+        <h1 class="page-title">Modifica Regista</h1>
 
-        <p th:if="${errore}" th:text="${errore}" style="color:red;">Errore</p>
+        <form th:action="@{/admin/registi/{id}/edit(id=${regista.id})}" method="POST" th:object="${regista}"
+            class="form-container" style="max-width: 600px;">
 
-        <div>
-            Nome: <span><input type="text" th:field="*{nome}" /></span>
-            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="error-message"></span>
-        </div>
-        <div>
-            Cognome: <span><input type="text" th:field="*{cognome}" /></span>
-            <span th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}" class="error-message"></span>
-        </div>
-        <div>
-            Data di nascita: <span><input type="date" th:field="*{dataNascita}" /></span>
-            <span th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}" class="error-message"></span>
-        </div>
-        <div>
-            Nazionalità: <span><input type="text" th:field="*{nazionalita}" /></span>
-            <span th:if="${#fields.hasErrors('nazionalita')}" th:errors="*{nazionalita}" class="error-message"></span>
-        </div>
-        <div>
-            <button type="submit">Salva</button>
-        </div>
-    </form>
+            <div th:if="${errore}" class="alert alert-danger" th:text="${errore}">Errore</div>
+
+            <div class="grid grid-2">
+                <div class="form-group">
+                    <label for="nome">Nome</label>
+                    <input id="nome" type="text" th:field="*{nome}" class="form-control" />
+                    <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="form-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="cognome">Cognome</label>
+                    <input id="cognome" type="text" th:field="*{cognome}" class="form-control" />
+                    <div th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}" class="form-error"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="dataNascita">Data di nascita</label>
+                <input id="dataNascita" type="date" th:field="*{dataNascita}" class="form-control" />
+                <div th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}" class="form-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="nazionalita">Nazionalità</label>
+                <input id="nazionalita" type="text" th:field="*{nazionalita}" class="form-control" />
+                <div th:if="${#fields.hasErrors('nazionalita')}" th:errors="*{nazionalita}" class="form-error"></div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Salva</button>
+            </div>
+
+        </form>
+
+    </div>
 </body>
 
 </html>

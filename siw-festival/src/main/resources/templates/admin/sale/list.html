@@ -1,32 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> SIWFestival - Lista delle Sale (Admin)</title>
+    <title>SIWFestival - Lista delle Sale (Admin)</title>
     <link rel="stylesheet" th:href="@{/css/stile.css}">
 </head>
 
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
 
-    <div>
-        <ul>
-            <li th:each="sala : ${saleList}">
-                <a th:href="@{'/admin/sale/' + ${sala.id}}"
-                    th:text="${sala.nome} + ' (' + ${sala.indirizzo} + ' )'">Sala placeholder (Via Calabria 67, Lamezia
-                    Terme)</a>
-                <a th:href="@{'/admin/sale/' + ${sala.id} + '/edit'}">
-                    <button type="submit">Modifica</button>
-                </a>
-            </li>
-        </ul>
+        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna
+            indietro</a>
+
+        <div class="flex-between mb-3">
+            <h1 class="page-title" style="margin-bottom: 0;">Sale</h1>
+            <a th:href="@{/admin/sale/new}" class="btn btn-accent btn-sm">Nuova sala</a>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Indirizzo</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="sala : ${saleList}">
+                        <td>
+                            <a th:href="@{'/admin/sale/' + ${sala.id}}" th:text="${sala.nome}">Sala placeholder</a>
+                        </td>
+                        <td th:text="${sala.indirizzo}">Via Calabria 67, Lamezia Terme</td>
+                        <td>
+                            <a th:href="@{'/admin/sale/' + ${sala.id} + '/edit'}"
+                                class="btn btn-outline btn-sm">Modifica</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
-
-    <a th:href="@{/admin/sale/new}">Nuova sala</a>
 </body>
 
 </html>

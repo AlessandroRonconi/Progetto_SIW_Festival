@@ -1,40 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Modifica Sala (Admin)</title>
+    <title>Modifica Sala (Admin)</title>
     <link rel="stylesheet" th:href="@{/css/stile.css}">
 </head>
 
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <a href="#" onclick="history.back(); return false;">← Torna indietro</a>
+    <div class="page-container">
 
-    <h1>Modifica Sala</h1>
+        <a href="#" onclick="history.back(); return false;" class="mb-2" style="display:inline-block;">← Torna
+            indietro</a>
 
-    <form th:action="@{/admin/sale/{id}/edit(id=${sala.id})}" method="POST" th:object="${sala}">
+        <h1 class="page-title">Modifica Sala</h1>
 
-        <p th:if="${errore}" th:text="${errore}" style="color:red;">Errore</p>
+        <form th:action="@{/admin/sale/{id}/edit(id=${sala.id})}" method="POST" th:object="${sala}"
+            class="form-container" style="max-width: 600px;">
 
-        <div>
-            Nome: <span><input type="text" th:field="*{nome}" /></span>
-            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="error-message"></span>
-        </div>
-        <div>
-            Indirizzo: <span><input type="text" th:field="*{indirizzo}" /></span>
-            <span th:if="${#fields.hasErrors('indirizzo')}" th:errors="*{indirizzo}" class="error-message"></span>
-        </div>
-        <div>
-            Capienza: <span><input type="text" th:field="*{capienza}" /></span>
-            <span th:if="${#fields.hasErrors('capienza')}" th:errors="*{capienza}" class="error-message"></span>
-        </div>
-        <div>
-            <button type="submit">Salva</button>
-        </div>
-    </form>
+            <div th:if="${errore}" class="alert alert-danger" th:text="${errore}">Errore</div>
+
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input id="nome" type="text" th:field="*{nome}" class="form-control" />
+                <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="form-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="indirizzo">Indirizzo</label>
+                <input id="indirizzo" type="text" th:field="*{indirizzo}" class="form-control" />
+                <div th:if="${#fields.hasErrors('indirizzo')}" th:errors="*{indirizzo}" class="form-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="capienza">Capienza</label>
+                <input id="capienza" type="text" th:field="*{capienza}" class="form-control" />
+                <div th:if="${#fields.hasErrors('capienza')}" th:errors="*{capienza}" class="form-error"></div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Salva</button>
+            </div>
+
+        </form>
+
+    </div>
 </body>
 
 </html>
