@@ -18,4 +18,6 @@ public interface FilmRepository extends CrudRepository<Film, Long> {
                         "(:cognomeRegista IS NULL OR LOWER(r.cognome) LIKE LOWER(CAST(:cognomeRegista AS string)))")
         List<Film> search(@Param("titolo") String titolo, @Param("genere") String genere,
                         @Param("cognomeRegista") String cognomeRegista);
+
+        public boolean existsByTitoloAndAnnoAndIdNot(String titolo, Long anno, Long id);
 }

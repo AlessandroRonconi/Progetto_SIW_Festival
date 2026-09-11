@@ -117,7 +117,7 @@ public class FestivalController {
             model.addAttribute("festival", festivalForm);
             return "admin/festival/editForm";
         }
-        return "redirect:/festival/" + id;
+        return "redirect:/admin/festival/" + id;
     }
 
     @GetMapping("/admin/festival/{id}/addFilm")
@@ -217,12 +217,13 @@ public class FestivalController {
                     proiezioneForm.getOra(), proiezioneForm.getFilm(), proiezioneForm.getSala());
             return "redirect:/admin/festival/" + esistente.getFestival().getId();
         } catch (DuplicateElementException e) {
-            Festival f = this.festivalService.findById(id); // fetch nuovo, sessione valida
+            Long festivalId = esistente.getFestival().getId();
+            Festival f = this.festivalService.findByIdWithFilm(festivalId);
             model.addAttribute("festival", f);
             model.addAttribute("filmList", f.getFilm());
             model.addAttribute("salaList", this.salaService.findAll());
             model.addAttribute("errore", "Sala già occupata in quell'orario.");
-            return "admin/festival/proiezioneForm";
+            return "admin/festival/proiezioneEditForm";
         }
     }
 

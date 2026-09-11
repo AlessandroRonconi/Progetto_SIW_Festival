@@ -43,7 +43,7 @@ public class RegistaService {
     }
 
     public Regista update(Long id, String nome, String cognome, LocalDate dataNascita, String nazionalita) {
-        if (this.registaRepository.existsByNomeAndCognomeAndDataNascita(nome, cognome, dataNascita))
+        if (this.registaRepository.existsByNomeAndCognomeAndDataNascitaAndIdNot(nome, cognome, dataNascita, id))
             throw new DuplicateElementException("Il regista " + nome + " " + cognome + " ("
                     + dataNascita + ") è già presente nel sistema");
         Regista r = this.findById(id);

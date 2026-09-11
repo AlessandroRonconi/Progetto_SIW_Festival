@@ -12,6 +12,8 @@ public interface FestivalRepository extends CrudRepository<Festival, Long> {
 
     public boolean existsByNomeAndAnno(String nome, Long anno);
 
+    public boolean existsByNomeAndAnnoAndIdNot(String nome, Long anno, Long id);
+
     @Query("SELECT f FROM Festival f LEFT JOIN FETCH f.film WHERE f.id = :id")
     Optional<Festival> findByIdWithFilm(@Param("id") Long id);
 

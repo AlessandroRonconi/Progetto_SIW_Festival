@@ -42,6 +42,11 @@ public class FestivalService {
                 .orElseThrow(() -> new ResourceNotFoundException("Festival non trovato"));
     }
 
+    public Festival findByIdWithFilm(Long id) {
+        return this.festivalRepository.findByIdWithFilm(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Festival non trovato"));
+    }
+
     public Long count() {
         return this.festivalRepository.count();
     }
@@ -56,7 +61,7 @@ public class FestivalService {
 
     public Festival update(Long id, String nome, Long anno, String citta, LocalDate dataInizio, LocalDate dataFine,
             String descrizione) {
-        if (this.festivalRepository.existsByNomeAndAnno(nome, anno))
+        if (this.festivalRepository.existsByNomeAndAnnoAndIdNot(nome, anno, id))
             throw new DuplicateElementException(
                     "Il festival " + nome + " " + anno + " è già presente nel sistema.");
         Festival f = this.findById(id);

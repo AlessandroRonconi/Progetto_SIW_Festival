@@ -40,7 +40,7 @@ public class SalaService {
     }
 
     public Sala update(Long id, String nome, String indirizzo, Long capienza) {
-        if (this.salaRepository.existsByNomeAndIndirizzo(nome, indirizzo))
+        if (this.salaRepository.existsByNomeAndIndirizzoAndIdNot(nome, indirizzo, id))
             throw new DuplicateElementException(
                     "La sala " + nome + " (" + indirizzo + ") è già presente nel sistema.");
         Sala s = this.findById(id);
