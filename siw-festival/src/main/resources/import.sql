@@ -28,8 +28,6 @@ insert into regista(id, nome, cognome, data_nascita, nazionalita) values(nextval
 insert into regista(id, nome, cognome, data_nascita, nazionalita) values(nextval('regista_seq'), 'Paolo', 'Genovese', '1966-11-06', 'Italia');
 
 -- FILM (ManyToOne verso Regista -> colonna regista_id)
--- NB: regista_id di Dune, Barbie e Parasite corretti rispetto al file originale:
--- con sequence che incrementa di 50, i registi hanno id 1 (Nolan), 51 (Villeneuve), 101 (Gerwig), 151 (Bong).
 insert into film(id, titolo, anno, durata, genere, paese_produzione, regista_id) values(nextval('film_seq'), 'Inception', 2010, 148, 'Fantascienza', 'UK/USA', 1);
 insert into film(id, titolo, anno, durata, genere, paese_produzione, regista_id) values(nextval('film_seq'), 'Dune', 2021, 155, 'Fantascienza', 'USA/Canada', 51);
 insert into film(id, titolo, anno, durata, genere, paese_produzione, regista_id) values(nextval('film_seq'), 'Barbie', 2023, 114, 'Commedia', 'USA', 101);
@@ -42,9 +40,6 @@ insert into film(id, titolo, anno, durata, genere, paese_produzione, regista_id)
 insert into film(id, titolo, anno, durata, genere, paese_produzione, regista_id) values(nextval('film_seq'), 'Perfetti sconosciuti', 2016, 97, 'Commedia', 'Italia', 401);
 
 -- RELAZIONE ManyToMany Festival <-> Film (tabella di join festival_film)
--- Festival: Monte Mario Sci-Fi 2026 = 1, Monte Mario Sci-Fi 2025 = 51, SBTCinema 2025 = 101
--- Film: Inception=1, Dune=51, Barbie=101, Parasite=151, Interstellar=201,
---       La vita è bella=251, La grande bellezza=301, Caro diario=351, Gomorra=401, Perfetti sconosciuti=451
 insert into festival_film(festival_id, film_id) values(1, 1);   -- Monte Mario Sci-Fi 2026 - Inception
 insert into festival_film(festival_id, film_id) values(1, 201); -- Monte Mario Sci-Fi 2026 - Interstellar
 insert into festival_film(festival_id, film_id) values(51, 51); -- Monte Mario Sci-Fi 2025 - Dune
@@ -60,7 +55,6 @@ insert into sala(id, nome, indirizzo, capienza) values(nextval('sala_seq'), 'Pal
 insert into sala(id, nome, indirizzo, capienza) values(nextval('sala_seq'), 'Andromeda', 'Via Mattia Battistini, 195, Roma', 300);
 
 -- PROIEZIONE (ManyToOne verso Festival, Film, Sala)
--- Sale: The Screen (Roma) = 1, PalaRiviera (San Benedetto) = 51, Andromeda (Roma) = 101
 insert into proiezione(id, data, ora, festival_id, film_id, sala_id) values(nextval('proiezione_seq'), '2026-08-02', '20:00:00', 1, 1, 101);   -- Inception @ Andromeda (Roma)
 insert into proiezione(id, data, ora, festival_id, film_id, sala_id) values(nextval('proiezione_seq'), '2026-08-05', '21:00:00', 1, 201, 1);   -- Interstellar @ The Screen (Roma)
 insert into proiezione(id, data, ora, festival_id, film_id, sala_id) values(nextval('proiezione_seq'), '2025-07-08', '20:30:00', 51, 51, 1);   -- Dune @ The Screen (Roma)
